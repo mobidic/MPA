@@ -1,0 +1,14 @@
+*.bak
+.DS_Store
+30012017
+V\ copie.py
+*.vcf
+foo
+keke
+*.xls
+*.xlsx
+*test*
+*.gz
+*tbi
+*.docx
+panel_description.txt

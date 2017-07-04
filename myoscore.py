@@ -186,7 +186,7 @@ for elt in vcf_reader.samples:
 # Writing the header (second part)
 f.write("ExAc\tClinSig\tFunc.refGene\t\
 ExonicFunc.refGene\tAAChange.refGene\t#CHROM\tPOS\tREF\tALT\tADA\tRF\t\
-Spidex\tScore\tNumber of tools\tMarrvel\tINFO\n")
+Spidex\tScore\tNumber of tools\n")
 
 # ==============================================================================
 

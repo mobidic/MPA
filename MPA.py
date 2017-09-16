@@ -14,8 +14,6 @@ import argparse	# for options
 import os		# for options
 import pprint	# pretty print
 
-PATH_SCORE_SERVER = 'score/score/'
-
 # ==============================================================================
 
 def parse(args):
@@ -38,7 +36,6 @@ def parse(args):
 		required=True)
 	## output file
 	mandatoryArgs.add_argument('-o','--output', metavar='file.csv',
-		type=argparse.FileType('w'),
 		help='generated .csv file with variants and score', required=True)
 
 
@@ -90,11 +87,22 @@ def score(exonicFunction = ".", ref = ".", alt = ".", function = ".",
 	scores_impact = {"SIFT" : SIFT, "HDIV" : HDIV, "HVAR" : HVAR, "LRT" : LRT,
 		"MutationTaster" : MutationTaster, "FATHMM" : FATHMM,
 		"PROVEAN" : PROVEAN, "MKL" : MKL, "SVM" : SVM, "LR" : LR}
-
+# for record in vcf_reader:
+# 	diff = ((len(record.REF)) - (len(str(record.ALT[0]))))
+#
+# 	if diff %3 != 0 and record.INFO['Func.refGene'][0] == "exonic" :
+# 		print ("diff : ", diff)
+# 		print ("Func.refGene : ", record.INFO['Func.refGene'][0])
+# 		print ("ExonicFunc.refGene : ", record.INFO['ExonicFunc.refGene']),
+# 		print ("longueur REF :", len(record.REF), "longueur ALT :", len(str((record.ALT[0]))))
+# 		print ("(lg.REF - lg.ALT) :", diff)
+# 		print ("REF : ", record.REF, "ALT : ", record.ALT)
+# 		print (str(record.INFO['Gene.refGene'][0]))
 	# Test and calculate the score.
 	deleterious = 0
 	available = 0
 	score_adjusted = 0
+
 	for score, impact in scores_impact.items():
 		if(impact == "D"):
 			deleterious += 1
@@ -109,34 +117,34 @@ def score(exonicFunction = ".", ref = ".", alt = ".", function = ".",
 	# and not as "B/benign"
 	if ("Pathogenic" in str(CLINSIG) or "pathogenic" in str(CLINSIG)) and \
 	((not "Benign" in str(CLINSIG)) and (not "benign" in str(CLINSIG))):
-		return(score_adjusted, "10db", available, "clinvar")
+		return(score_adjusted, "10db", available, "clinvar",1)
 	# Test impact on stop codon
-	if (exonicFunction =="stopgain" or exonicFunction =="stoploss"):
-		return(score_adjusted, "10sfs", available, "stop")
-	# Test impact on frameshift
-	if (exonicFunction == "frameshift deletion" or
-		exonicFunction == "frameshift insertion"):
-		return(score_adjusted, "10sfs", available, "frameshift")
+	if (exonicFunction =="stopgain" or exonicFunction =="stoploss"
+	or exonicFunction == "frameshift_deletion" or exonicFunction =="frameshift_insertion"):
+		return(score_adjusted, "10sfs", available, "stop",2)
+
+	if ((len(str(ref))) - (len(str(alt)))) % 3 !=0 and exonicFunction == "exonic":
+		return(score_adjusted, "10sfs", available, "frameshift",2)
 	# Test impact on splice function
 	if ((ref or alt == "-") and re.match("splicing",function)):
-		return(score_adjusted, "10sp",available, "splice")
+		return(score_adjusted, "10sp",available, "splice",5)
 	# Test impact on splice function
 	if(str(ADAscore) != "."):
 		if(float(ADAscore) >= 0.6):
-			return(score_adjusted, "10sp",available, "splice")
+			return(score_adjusted, "10spADA",available, "splice",4)
 	if(str(RFscore) != "."):
 		if(float(RFscore) >= 0.6):
-			return(score_adjusted, "10sp",available, "splice")
+			return(score_adjusted, "10spRF",available, "splice",3)
 	if(str(Zscore) != "."):
 		if(float(Zscore) < -2):
-			return(score_adjusted, "10sp", available, "splice")
+			return(score_adjusted, "10sp", available, "splice",5)
 	# Test if variant maps to multiple location, return "u" (UNKNOWN) if it does
 	if(exonicFunction == "unknown"):
-		return(score_adjusted, "u",available, "u")
+		return(score_adjusted, "u",available, "u",7)
 	#return 'na' if no tools score are available
 	#return deleterious/available * 10, "%s/%s" % (deleterious, available)
 	else:
-		return score_adjusted, score_adjusted, available, "na"
+		return (score_adjusted, score_adjusted, available, "na",6)
 
 # ==============================================================================
 # ==============================================================================
@@ -167,7 +175,6 @@ def is_valid_path(parser, tested_path):
 try :
 	inFile_h = open(inFile, 'r')
 	vcf_reader = vcf.Reader(inFile_h)
-	f = outFile
 except UnicodeDecodeError :
 	print ("\n")
 	print("###*** The input file format is invalid. Please use an \
@@ -175,18 +182,28 @@ except UnicodeDecodeError :
 	print ("\n")
 	sys.exit()
 
+try :
+	f = open(outFile, 'w')
+except UnicodeDecodeError :
+	print ("\n")
+	print("###*** The output file format is invalid")
+	print ("\n")
+	sys.exit()
+
 # ==============================================================================
 
 # Writing the header
-f.write("Score\tGene.refGene\t")
+head = "Rank\tScore\tGene.refGene\t"
 
 # Writing sample name in the header
 for elt in vcf_reader.samples:
-	f.write(elt + "\t")
+	head = head + elt + "\t"
 # Writing the header (second part)
-f.write("ExAc\tClinSig\tFunc.refGene\t\
+
+
+head = head + "ExAc\tClinSig\tFunc.refGene\t\
 ExonicFunc.refGene\tAAChange.refGene\t#CHROM\tPOS\tREF\tALT\tADA\tRF\t\
-Spidex\tScore\tNumber of tools\n")
+Spidex\tScore\tNumber of tools"
 
 # ==============================================================================
 
@@ -274,7 +291,8 @@ for record in vcf_reader:
 		record.INFO['MetaLR_pred'][0],
 		record.INFO['CLINSIG']
 	)
-
+	if diff %3 != 0 and record.INFO['Func.refGene'][0] == "exonic" :
+		print (s, "\n")
 # ==============================================================================
 
 # Writing output csv
@@ -282,6 +300,7 @@ for record in vcf_reader:
 	for sample in record.samples:
 			geno += ("'" + sample['GT'] + "\t")
 	f.write(
+		str(s[4]) + "\t" +
 		str(s[1]) + "\t" +
 		str(record.INFO['Gene.refGene'][0]) +"\t" +
 		str(geno) +
@@ -302,4 +321,7 @@ for record in vcf_reader:
 	)
 f.close()
 
+os.system("sort -k1,1 -k2rn "+ outFile +  "> t.xls")
+os.system("echo \""+ head + "\" > " + outFile)
+os.system("cat t.xls >> " + outFile + " && rm t.xls")
 ################################################################################

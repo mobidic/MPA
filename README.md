@@ -34,13 +34,51 @@ variants from the human expert-feeded Universal Mutation Database [1] with
 courtesy regards of curators for pathogenic variants and from the ExAc database
 [2] to define the dataset of neutral variants.
 
-![MPA diagram](doc/img/MPA_diagram.png)
+![MPA diagram](doc/img/MPA_diagram.svg)
+
+PTC: Premature Truncation Codon : nonsense or frameshift
 
 ### Citing MPA
 
 > **Yauy et al.** An algorithm based on an updated evaluation
 of prediction tools to prioritize variants with a unique score for TTN and NGS
 molecular diagnosis. **(2017)**
+
+### Output example
+
+**Column 1 - 2: Rank from 1 to 7 and score**
+
+* 1 - 10db : Pathogenic variants reported on ClinVar
+* 2 - 10sfs : Premature Truncation Codon : nonsense or frameshift
+* 3,4,5 - 10spADA, 10spRF, 10sp : Affecting splice variants predictions ranked by algorithm performance robustness
+* 6 - 10 to 0 : Missense variants scores
+* 7 - U : Exonic variants with not clearly annotated ORFs
+
+
+
+** Column 3 : Gene Name**
+- RefGene Nomenclature
+
+** Column 4, 5, 6... (one column per sample) : Genotype **
+ - '0/1 : Heterozygous
+ - '1/1 : Homozygous
+ - '. : Variant not called
+
+
+** Additional columns **
+
+Common variant annotation by the following databases (in order of appearance) :
+- ExAc
+- ClinVar (ClinSig)
+-	Func.refGene : localisation of the variation (exonic, splicing, intronic, UTR, ...)
+-	ExonicFunc.refGene : mpact of the variation (synonymous, non-synonymous, stop,
+frameshift, non frameshift ...)
+-	AAChange.refGene : detailed variation on the transcript and on the protein (c. and p.)
+- CHROM POS	REF	ALT
+- ADA/RF : Splicing predictions [7]
+- Spidex : Splicing predictions [6]
+-	Score : Cumulative missense predictions (/10) from dbNFSP [8]
+- Number of tools : Number of in silico tools that annotate at this locus
 
 --------------------------------------------------------------------------------
 
@@ -81,71 +119,6 @@ databases :
 > In addition you will need to annotate your VCF with Annovar [8]
 (cf. [Quick guide for Annovar](#quick-guide-for-annovar)).
 
-### Check installation
-
-You can check if all depencies are installed.
-Launch the script *install.py* :
-
-<!-- TODO: Change to test impleted on the script -->
-
-```bash
-$ python mpa.py -e
-```
-
-If everything is good you will see something like that :
-
-```bash
-$ python mpa.py -e
-> Launch data test.
-> ...
-> Everything is OK !
-```
-
-### Troubleshooting
-
-#### Python version
-
-If you see this message :
-
-```bash
-$ python mpa.py -e
-> [ERROR] Requires Python 3.x, not Python 2.x
-```
-
-This message means your default python is not python3. In most cases this issue
-can be solved by specifying wich version of python you wish to use:
-
-```bash
-$ python3 mpa.py -e
-```
-
-> In other cases you probably need to install python3.x :
-[documentation here](https://docs.python.org/3.5/).
-
-#### Dependencies
-
-Maybe some dependencies are not installed, in these cases an error will show up:
-
-```bash
-$ python mpa.py -e
-> Launch data test.
-> [ERROR] Missing module: vcf
-> ...
-> Error !
-```
-
-In these cases you will need to install a module like *PyVCF* (module vcf). You
-can use *pip* to install it like this in the most cases :
-
-```bash
-$ pip install PyVCF
-> Collecting PyVCF
-> Requirement already satisfied: setuptools in /home/foo/miniconda3/lib/python3.6/site-packages/setuptools-27.2.0-py3.6.egg (from PyVCF)
-> Installing collected packages: PyVCF
-> Successfully installed PyVCF-0.6.8
-```
-
-> More details for *pip* : [documentation here](https://pip.pypa.io/en/stable/).
 
 ## Quick start
 

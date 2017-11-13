@@ -34,7 +34,7 @@ variants from the human expert-feeded Universal Mutation Database [1] with
 courtesy regards of curators for pathogenic variants and from the ExAc database
 [2] to define the dataset of neutral variants.
 
-![MPA diagram](doc/img/MPA_diagram.svg)
+![MPA diagram](doc/img/MPA_diagram.png)
 
 PTC: Premature Truncation Codon : nonsense or frameshift
 

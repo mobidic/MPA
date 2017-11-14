@@ -175,7 +175,9 @@ perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out p
 
 France
 
-![](doc/img/mobidic.png)
+![MoBiDiC](doc/img/logo-mobidic.png)
+
+[Visit our website](https://neuro-2.iurc.montp.inserm.fr/mobidic/)
 
 --------------------------------------------------------------------------------
 

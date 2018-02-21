@@ -46,26 +46,24 @@ molecular diagnosis. **(2017)**
 
 ### Output example
 
-**Column 1 - 2: Rank from 1 to 7 and score**
+#### Column 1 - 2: Rank from 1 to 7 and score
 
-* 1 - 10db : Pathogenic variants reported on ClinVar
-* 2 - 10sfs : Premature Truncation Codon : nonsense or frameshift
-* 3,4,5 - 10spADA, 10spRF, 10sp : Affecting splice variants predictions ranked by algorithm performance robustness
-* 6 - 10 to 0 : Missense variants scores
-* 7 - U : Exonic variants with not clearly annotated ORFs
+- 1 - 10db : Pathogenic variants reported on ClinVar
+- 2 - 10sfs : Premature Truncation Codon : nonsense or frameshift
+- 3,4,5 - 10spADA, 10spRF, 10sp : Affecting splice variants predictions ranked by algorithm performance robustness
+- 6 - 10 to 0 : Missense variants scores
+- 7 - U : Exonic variants with not clearly annotated ORFs
 
+#### Column 3 : Gene Name
 
-
-** Column 3 : Gene Name**
 - RefGene Nomenclature
 
-** Column 4, 5, 6... (one column per sample) : Genotype **
- - '0/1 : Heterozygous
- - '1/1 : Homozygous
- - '. : Variant not called
+#### Column 4, 5, 6... (one column per sample) : Genotype
+- '0/1 : Heterozygous
+- '1/1 : Homozygous
+- '. : Variant not called
 
-
-** Additional columns **
+#### Additional columns
 
 Common variant annotation by the following databases (in order of appearance) :
 - ExAc
@@ -175,7 +173,9 @@ perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out p
 
 France
 
-![](doc/img/mobidic.png)
+![MoBiDiC](doc/img/logo-mobidic.png)
+
+[Visit our website](https://neuro-2.iurc.montp.inserm.fr/mobidic/)
 
 --------------------------------------------------------------------------------
 

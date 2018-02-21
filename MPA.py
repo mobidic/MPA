@@ -126,9 +126,6 @@ def score(exonicFunction = ".", ref = ".", alt = ".", function = ".",
 	if ((len(str(ref))) - (len(str(alt)))) % 3 !=0 and exonicFunction == "exonic":
 		return(score_adjusted, "10sfs", available, "frameshift",2)
 	# Test impact on splice function
-	if ((ref or alt == "-") and re.match("splicing",function)):
-		return(score_adjusted, "10sp",available, "splice",5)
-	# Test impact on splice function
 	if(str(ADAscore) != "."):
 		if(float(ADAscore) >= 0.6):
 			return(score_adjusted, "10spADA",available, "splice",4)
@@ -137,14 +134,17 @@ def score(exonicFunction = ".", ref = ".", alt = ".", function = ".",
 			return(score_adjusted, "10spRF",available, "splice",3)
 	if(str(Zscore) != "."):
 		if(float(Zscore) < -2):
-			return(score_adjusted, "10sp", available, "splice",5)
+			if (ADAscore == ".") and (RFscore == ".") :
+				return(score_adjusted, "10sp", available, "splice",5)
+	if (((ref == "-") or (alt == "-")) and re.match("splicing",function)):
+		return(score_adjusted, "10sp_indel",available, "splice",6)
 	# Test if variant maps to multiple location, return "u" (UNKNOWN) if it does
 	if(exonicFunction == "unknown"):
-		return(score_adjusted, "u",available, "u",7)
+		return(score_adjusted, "u",available, "u",8)
 	#return 'na' if no tools score are available
 	#return deleterious/available * 10, "%s/%s" % (deleterious, available)
 	else:
-		return (score_adjusted, score_adjusted, available, "na",6)
+		return (score_adjusted, score_adjusted, available, "na",7)
 
 # ==============================================================================
 # ==============================================================================
@@ -291,8 +291,7 @@ for record in vcf_reader:
 		record.INFO['MetaLR_pred'][0],
 		record.INFO['CLINSIG']
 	)
-	if diff %3 != 0 and record.INFO['Func.refGene'][0] == "exonic" :
-		print (s, "\n")
+
 # ==============================================================================
 
 # Writing output csv

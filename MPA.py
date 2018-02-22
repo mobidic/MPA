@@ -320,14 +320,14 @@ def calculate_adjusted_score(scores_impact):
     return {
         "adjusted":score_adjusted,
         "available":available,
-        "deleterioous":deleterious
+        "deleterious":deleterious
     }
 
 def is_clinvar_pathogenic(clinsig):
     """
     @summary: Define if clinvar annotation predict this variant as pathogenic
     @param clinsig: [str] The clinvar annotation provided by the vcf
-    @return: [bool] True if is pathogenic and no Benign; False in other cases
+    @return: [int/bool] Rank (1) if is pathogenic and no Benign; False in other cases
     """
     # No clinsig available
     if clinsig == None:
@@ -339,7 +339,7 @@ def is_clinvar_pathogenic(clinsig):
 
     # Determine if clinvar as no doubt about pathogenicity
     if(match_pathogenic and not match_benign):
-        return True
+        return 1
     else:
         return False
 
@@ -350,7 +350,7 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     @param splices_scores: [dict] The dictionnary of splicing scores
     @param is_indel: [bool] Boolean to define if variants is indel or not
     @param funcRefGene: [str] Annotation provided by refGene about the biological function
-    @return: [bool] True if is splicing impact; False in other cases
+    @return: [int/bool] Rank (3,4,5 or 6) if is splicing impact; False in other cases
     """
 
     # If ADA predict splicing impact
@@ -375,47 +375,58 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     home_splice = (is_indel and match_splicing)
 
     # Determine if there is a splicing impact
-    if(ADA_splice or RF_splice or Zscore_splice or home_splice):
-        return True
+    if(ADA_splice):
+        return 4
+    elif(RF_splice):
+        return 3
+    elif(Zscore_splice):
+        return 5
+    elif(home_splice):
+        return 6
     else:
         return False
 
-def is_stop_impact(exonicFuncRefGene, is_indel, funcRefGene):
+def is_stop_impact(exonicFuncRefGene):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
-    @return: [bool] True if is stop impact; False in other cases
+    @return: [bool] Rank (2) if is stop impact; False in other cases
     """
-    if(exonicFuncRefGene == None):
-        return False
-
-
     match_stoploss = re.search("stoploss", exonicFuncRefGene, re.IGNORECASE)
     match_stopgain = re.search("stopgain", exonicFuncRefGene, re.IGNORECASE)
 
     if(match_stopgain or match_stoploss):
-        return True
+        return 2
     else:
         return False
 
-def is_frameshift_impact(exonicFuncRefGene, is_indel, funcRefGene):
+def is_frameshift_impact(exonicFuncRefGene):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
-    @param is_indel: [bool] Boolean to define if variants is indel or not
-    @param funcRefGene: [str] Annotation provided by refGene about the biological function
-    @return: [bool] True if is frameshift impact; False in other cases
+    @return: [int/bool] Rank (2) if is frameshift impact; False in other cases
     """
-    if(exonicFuncRefGene == None or funcRefGene == None):
-        return False
-
     match_frameshift = re.search("frameshift", exonicFuncRefGene, re.IGNORECASE)
-    match_exonic = re.search("exonic", funcRefGene, re.IGNORECASE)
 
-    if(match_frameshift or (is_indel and match_exonic)):
-        return True
+    if(match_frameshift):
+        return 2
     else:
         return False
+
+def is_unknown_impact(exonicFuncRefGene):
+    """
+    @summary: Predict stop codon effect of the variant
+    @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
+    @return: [bool] True if is frameshift impact; False in other cases
+    """
+    match_frameshift = re.search("unknown", exonicFuncRefGene, re.IGNORECASE)
+
+    if(match_frameshift):
+        return 8
+    else:
+        return False
+
+
 
 ################################################################################
 
@@ -445,6 +456,7 @@ def process(args, log):
                 log.error(str(e))
                 return
 
+            # Deleterious impact scores
             impacts_scores = {
                 "SIFT" : record.INFO['SIFT_pred'][0],
                 "HDIV" : record.INFO['Polyphen2_HDIV_pred'][0],
@@ -458,31 +470,51 @@ def process(args, log):
                 "LR" : record.INFO['MetaLR_pred'][0]
             }
 
+            # Splicing impact scores
             splices_scores = {
                 "ADA": record.INFO['dbscSNV_ADA_SCORE'][0],
                 "RF": record.INFO['dbscSNV_RF_SCORE'][0],
                 "Zscore":record.INFO['dpsi_zscore'][0],
             }
 
+            # MPA aggregate the information to predict some effects
+            meta_impact = {
+                "clinvar_pathogenicity": False,
+                "splice_impact": False,
+                "stop_impact": False,
+                "frameshift_impact": False,
+                "unknown_impact": False
+            }
+
             # Calculate adjusted score for each variants
             adjusted_score = calculate_adjusted_score(impacts_scores)
 
             # Determine if variant is well annotated with clinvar as deleterious
-            clinvar_pathogenicity = is_clinvar_pathogenic(record.INFO['CLINSIG'][0])
+            meta_impact["clinvar_pathogenicity"] = is_clinvar_pathogenic(record.INFO['CLINSIG'][0])
 
             # Determine the impact on splicing
-            splice_impact = is_splice_impact(splices_scores, record.is_indel, record.INFO['Func.refGene'][0])
+            meta_impact["splice_impact"] = is_splice_impact(splices_scores, record.is_indel, record.INFO['Func.refGene'][0])
 
-            # Determine the stop impact
-            stop_impact = is_stop_impact(record.INFO['ExonicFunc.refGene'][0])
+            # Determine the exonic impact
+            match_exonic = re.search("exonic", record.INFO['Func.refGene'][0], re.IGNORECASE)
+            if(match_exonic and record.INFO['ExonicFunc.refGene'][0] != None):
+                # Determine the stop impact
+                meta_impact["stop_impact"] = is_stop_impact(record.INFO['ExonicFunc.refGene'][0])
 
-            # Determine the frameshift impact
-            frameshift_impact = is_framshift_impact(record.INFO['ExonicFunc.refGene'][0],  record.is_indel, record.INFO['Func.refGene'][0])
-            # print(record.INFO['ExonicFunc.refGene'])
+                # Determine the frameshift impact
+                meta_impact["frameshift_impact"] = is_frameshift_impact(record.INFO['ExonicFunc.refGene'][0])
 
+                # Determine if unknown impact (misunderstand gene)
+                # NOTE: /!\ Be careful to updates regularly your databases /!\
+                meta_impact["unknown_impact"] = is_unknown_impact(record.INFO['ExonicFunc.refGene'][0])
 
-
-
+            # Ranking of variants
+            rank = False
+            for impact in meta_impact:
+                if (meta_impact[impact] and meta_impact[impact]<rank) or not rank:
+                    rank = meta_impact[impact]
+            if not rank:
+                rank = 7
 
 
 ########################################################################

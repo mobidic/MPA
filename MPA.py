@@ -3,7 +3,6 @@
 # Copyright (C) 2018
 #
 
-
 __author__ = 'Henri Pegeot and Kevin Yauy and Charles Van Goethem'
 __copyright__ = 'Copyright (C) 2018'
 __license__ = 'Academic License Agreement'
@@ -11,41 +10,22 @@ __version__ = '0.1.0'
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'dev'
 
-
+################################################################################
+#
+# IMPORT
+#
+################################################################################
 import vcf		# read vcf => PyVCF :https://pyvcf.readthedocs.io/en/latest/
 import sys		# system command
-import csv		# read, write csv
 import re		# regex
 import argparse	# for options
-import os		# for options
-import pprint	# pretty print
-import logging
-
-# ==============================================================================
+import logging  # logging messages
 
 ########################################################################
 #
 # FUNCTIONS
 #
 ########################################################################
-
-class LoggerAction(argparse.Action):
-    """
-    @summary: Manages logger level parameters (The value "INFO" becomes logging.info and so on).
-    """
-    def __call__(self, parser, namespace, values, option_string=None):
-        log_level = None
-        if values == "DEBUG":
-            log_level = logging.DEBUG
-        elif values == "INFO":
-            log_level = logging.INFO
-        elif values == "WARNING":
-            log_level = logging.WARNING
-        elif values == "ERROR":
-            log_level = logging.ERROR
-        elif values == "CRITICAL":
-            log_level = logging.CRITICAL
-        setattr(namespace, self.dest, log_level)
 
 def check_annotation(vcf_infos):
     """
@@ -213,7 +193,7 @@ def is_unknown_impact(exonicFuncRefGene):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
-    @return: [bool] True if is frameshift impact; False in other cases
+    @return: [int/bool] Rank (8) if is frameshift impact; False in other cases
     """
     match_frameshift = re.search("unknown", exonicFuncRefGene, re.IGNORECASE)
 
@@ -222,10 +202,11 @@ def is_unknown_impact(exonicFuncRefGene):
     else:
         return False
 
-
-
 ################################################################################
-
+#
+# PROCESS
+#
+################################################################################
 def process(args, log):
     """
     @summary: Launch annotation with MPA score on a vcf.
@@ -313,11 +294,35 @@ def process(args, log):
                 rank = 7
 
 
-########################################################################
+
+################################################################################
+#
+# CLASS
+#
+################################################################################
+class LoggerAction(argparse.Action):
+    """
+    @summary: Manages logger level parameters (The value "INFO" becomes logging.info and so on).
+    """
+    def __call__(self, parser, namespace, values, option_string=None):
+        log_level = None
+        if values == "DEBUG":
+            log_level = logging.DEBUG
+        elif values == "INFO":
+            log_level = logging.INFO
+        elif values == "WARNING":
+            log_level = logging.WARNING
+        elif values == "ERROR":
+            log_level = logging.ERROR
+        elif values == "CRITICAL":
+            log_level = logging.CRITICAL
+        setattr(namespace, self.dest, log_level)
+
+################################################################################
 #
 # MAIN
 #
-########################################################################
+################################################################################
 if __name__ == "__main__":
     # Manage parameters
     parser = argparse.ArgumentParser(description="Annotate VCF with Mobidic Prioritization Algorithm score (MPA).")

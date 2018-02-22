@@ -171,6 +171,8 @@ perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out p
 - Make a default output
 - Add option to make a TSV output
 - Optimize ranking with predicted deleterious scoring
+- Add PLI score to priorization (see annovar documentation)
+- Add associated array to known what ranking means
 
 --------------------------------------------------------------------------------
 

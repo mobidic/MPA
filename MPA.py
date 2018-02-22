@@ -217,6 +217,7 @@ def process(args, log):
     with open(args.input, 'r') as f:
         log.info("Read VCF")
         vcf_reader = vcf.Reader(f)
+        vcf_writer = vcf.Writer(open('test.vcf', 'w'), vcf_reader)
         log.info("Check vcf annotations")
 
         try:
@@ -290,12 +291,28 @@ def process(args, log):
 
             # Ranking of variants
             rank = False
+            record.INFO['MPA_impact'] = ""
             for impact in meta_impact:
-                if (meta_impact[impact] and meta_impact[impact]<rank) or not rank:
-                    rank = meta_impact[impact]
+                if (meta_impact[impact]):
+                    record.INFO['MPA_impact'] = record.INFO['MPA_impact'] + impact + ","
+                    if(meta_impact[impact]<rank or not rank):
+                        rank = meta_impact[impact]
+                        adjusted_score["final_score"] = 10
+
             if not rank:
                 rank = 7
+                record.INFO['MPA_impact'] = "NULL,"
+                adjusted_score["final_score"] = adjusted_score["adjusted"]
+
             log.debug("Ranking : " + str(rank))
+
+            record.INFO['MPA_impact'] = record.INFO['MPA_impact'][:-1]
+            record.INFO['MPA_ranking'] = rank
+            for sc in adjusted_score:
+                record.INFO['MPA_' + sc] = adjusted_score[sc]
+
+            vcf_writer.write_record(record)
+
 
 
 
@@ -337,7 +354,7 @@ if __name__ == "__main__":
     group_input.add_argument('-i', '--input', required=True, help="The vcf file to annotate (format: VCF). This vcf must be annotate with annovar.")
 
     group_output = parser.add_argument_group('Outputs')  # Outputs
-    group_output.add_argument('-o', '--output', required=True, help="The csv file corresponding to the vcf file enter on input. (format : CSV)")
+    group_output.add_argument('-o', '--output', required=True, help="The output vcf file with annotation (format : VCF)")
     args = parser.parse_args()
 
     # Process

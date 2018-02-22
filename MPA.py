@@ -1,6 +1,12 @@
+##GNOMAD_genome
+##Argument
+##Ajouter xrf
+##Doc MPA
+##mettre qual
+##mettre sequencage
 ##!/usr/local/bin/ python3.5
 # coding: utf-8
-# myoscore.py aim to calculate a unique score based on prediction tools in order
+# MPA.py aim to calculate a unique score based on prediction tools in order
 # to prioritize variants with a unique score
 
 # ==============================================================================
@@ -37,12 +43,15 @@ def parse(args):
 	## output file
 	mandatoryArgs.add_argument('-o','--output', metavar='file.csv',
 		help='generated .csv file with variants and score', required=True)
-
+	## output vcf
+	# mandatoryArgs.add_argument('-v','--vcf_output', metavar='file.vcf',
+	# 	help='generated .vcf file with MPA annotation', required=True)
 
 	args = parser.parse_args()
 	return(
 		args.input,
 		args.output,
+		# args.vcf_output
 	)
 # ==============================================================================
 
@@ -190,6 +199,9 @@ except UnicodeDecodeError :
 	print ("\n")
 	sys.exit()
 
+
+vcf_writer = vcf.Writer(open('testttttt.vcf', 'w'), vcf_reader)
+
 # ==============================================================================
 
 # Writing the header
@@ -201,7 +213,7 @@ for elt in vcf_reader.samples:
 # Writing the header (second part)
 
 
-head = head + "ExAc\tClinSig\tFunc.refGene\t\
+head = head + "ExAc\tGnomAD_genome\tClinSig\tFunc.refGene\t\
 ExonicFunc.refGene\tAAChange.refGene\t#CHROM\tPOS\tREF\tALT\tADA\tRF\t\
 Spidex\tScore\tNumber of tools"
 
@@ -245,7 +257,15 @@ vcf_key = [
 # Iterating through the input VCF
 for record in vcf_reader:
 
-# =======																========
+
+
+
+
+# 	print (record.FORMAT)
+# 	print ("\n")
+# 	print (record.INFO)
+# 	print ("\n")
+# # =======																========
 # Testing if the input vcf is correctly annotated
 
 	error = False
@@ -304,6 +324,7 @@ for record in vcf_reader:
 		str(record.INFO['Gene.refGene'][0]) +"\t" +
 		str(geno) +
 		str(record.INFO['ExAC_ALL'][0]) +"\t" +
+		# str(record.INFO['G'][0]) +"\t" +		
 		str(record.INFO['CLINSIG'][0]) +"\t" +
 		str(record.INFO['Func.refGene'][0]) +"\t" +
 		str(record.INFO['ExonicFunc.refGene'][0]) + "\t" +
@@ -318,6 +339,12 @@ for record in vcf_reader:
 		str(s[0]) + "\t" +
 		str(s[2]) + "\n"
 	)
+	
+	print(record.FORMAT)
+	record.INFO['MPA_number_tools'] = [str(s[2])]
+	record.INFO['MPA_score'] = [str(s[1])]
+	record.INFO['MPA_rank'] = [str(s[4])] 
+	vcf_writer.write_record(record)
 f.close()
 
 os.system("sort -k1,1 -k2rn "+ outFile +  "> t.xls")

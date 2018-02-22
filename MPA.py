@@ -65,10 +65,10 @@ def check_split_variants(record):
     @return: [None]
     """
     if (len(str(record.REF).split(',')) > 1):
-        sys.exit('Multi references on vcf at "' + str(record.CHROM) + ':' + str(record.POS) + '". It seems that your vcf not followed the specifications.')
+        sys.exit('Multi references on vcf. It seems that your vcf not followed the specifications.')
 
     if (len(record.ALT) > 1):
-        sys.exit('Multi allelic variant on vcf at "' + str(record.CHROM) + ':' + str(record.POS) + '". See documentation and provide a well processed vcf (split variants).')
+        sys.exit('Multi allelic variant on vcf. See documentation and provide a well processed vcf (split variants).')
 
     return None
 
@@ -230,8 +230,10 @@ def process(args, log):
             try:
                 check_split_variants(record)
             except SystemExit as e:
+                log.error(str(record))
                 log.error(str(e))
-                return
+                continue
+            log.debug(str(record))
 
             # Deleterious impact scores
             impacts_scores = {
@@ -284,6 +286,7 @@ def process(args, log):
                 # Determine if unknown impact (misunderstand gene)
                 # NOTE: /!\ Be careful to updates regularly your databases /!\
                 meta_impact["unknown_impact"] = is_unknown_impact(record.INFO['ExonicFunc.refGene'][0])
+            log.debug("Meta score : " + str(meta_impact))
 
             # Ranking of variants
             rank = False
@@ -292,6 +295,7 @@ def process(args, log):
                     rank = meta_impact[impact]
             if not rank:
                 rank = 7
+            log.debug("Ranking : " + str(rank))
 
 
 
@@ -335,7 +339,6 @@ if __name__ == "__main__":
     group_output = parser.add_argument_group('Outputs')  # Outputs
     group_output.add_argument('-o', '--output', required=True, help="The csv file corresponding to the vcf file enter on input. (format : CSV)")
     args = parser.parse_args()
-
 
     # Process
     logging.basicConfig(format='%(asctime)s - %(name)s [%(levelname)s] %(message)s')

@@ -380,7 +380,7 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     else:
         return False
 
-def is_stop_impact(exonicFuncRefGene):
+def is_stop_impact(exonicFuncRefGene, is_indel, funcRefGene):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
@@ -393,7 +393,26 @@ def is_stop_impact(exonicFuncRefGene):
     match_stoploss = re.search("stoploss", exonicFuncRefGene, re.IGNORECASE)
     match_stopgain = re.search("stopgain", exonicFuncRefGene, re.IGNORECASE)
 
-    if(match_stopgain and match_stoploss):
+    if(match_stopgain or match_stoploss):
+        return True
+    else:
+        return False
+
+def is_frameshift_impact(exonicFuncRefGene, is_indel, funcRefGene):
+    """
+    @summary: Predict stop codon effect of the variant
+    @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
+    @param is_indel: [bool] Boolean to define if variants is indel or not
+    @param funcRefGene: [str] Annotation provided by refGene about the biological function
+    @return: [bool] True if is frameshift impact; False in other cases
+    """
+    if(exonicFuncRefGene == None or funcRefGene == None):
+        return False
+
+    match_frameshift = re.search("frameshift", exonicFuncRefGene, re.IGNORECASE)
+    match_exonic = re.search("exonic", funcRefGene, re.IGNORECASE)
+
+    if(match_frameshift or (is_indel and match_exonic)):
         return True
     else:
         return False
@@ -458,6 +477,7 @@ def process(args, log):
             stop_impact = is_stop_impact(record.INFO['ExonicFunc.refGene'][0])
 
             # Determine the frameshift impact
+            frameshift_impact = is_framshift_impact(record.INFO['ExonicFunc.refGene'][0],  record.is_indel, record.INFO['Func.refGene'][0])
             # print(record.INFO['ExonicFunc.refGene'])
 
 

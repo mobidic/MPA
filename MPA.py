@@ -6,9 +6,9 @@
 __author__ = 'Henri Pegeot and Kevin Yauy and Charles Van Goethem'
 __copyright__ = 'Copyright (C) 2018'
 __license__ = 'Academic License Agreement'
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __email__ = 'h-pegeot@chu-montpellier.fr'
-__status__ = 'dev'
+__status__ = 'prod'
 
 ################################################################################
 #

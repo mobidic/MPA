@@ -151,10 +151,10 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     home_splice = (is_indel and match_splicing)
 
     # Determine if there is a splicing impact
-    if(ADA_splice):
-        return 4
-    elif(RF_splice):
+    if(RF_splice):
         return 3
+    elif(ADA_splice):
+        return 4
     elif(Zscore_splice):
         return 5
     elif(home_splice):

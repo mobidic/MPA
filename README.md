@@ -164,6 +164,10 @@ The following command line annotate a VCF file :
 ```bash
 perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out path/to/output/name -remove -protocol refGene,refGene,clinvar_20170130,dbnsfp33a,spidex,dbscsnv11 -operation g,g,f,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,,,
 ```
+## TODO
+
+- Check files validity (path for output and file exist for input)
+- Check if valid vcf on input
 
 --------------------------------------------------------------------------------
 

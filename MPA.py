@@ -217,7 +217,7 @@ def process(args, log):
     with open(args.input, 'r') as f:
         log.info("Read VCF")
         vcf_reader = vcf.Reader(f)
-        vcf_writer = vcf.Writer(open('test.vcf', 'w'), vcf_reader)
+        vcf_writer = vcf.Writer(open(args.output, 'w'), vcf_reader)
         log.info("Check vcf annotations")
 
         try:

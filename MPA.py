@@ -284,7 +284,7 @@ def process(args, log):
             log.error(str(e))
             return
 
-        log.info("Read the vcf")
+        log.info("Read the each variants")
         for record in vcf_reader:
             try:
                 check_split_variants(record)

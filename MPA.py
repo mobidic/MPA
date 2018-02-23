@@ -373,9 +373,6 @@ def process(args, log):
 
             vcf_writer.write_record(record)
 
-
-
-
 ################################################################################
 #
 # CLASS

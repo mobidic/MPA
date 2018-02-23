@@ -15,17 +15,47 @@ __status__ = 'prod'
 # IMPORT
 #
 ################################################################################
-import vcf		# read vcf => PyVCF :https://pyvcf.readthedocs.io/en/latest/
-import sys		# system command
-import re		# regex
-import argparse	# for options
-import logging  # logging messages
+import vcf        # read vcf => PyVCF :https://pyvcf.readthedocs.io/en/latest/
+import sys        # system command
+import os         # os command
+import re         # regex
+import argparse   # for options
+import logging    # logging messages
+import subprocess # launch subprocess
 
 ########################################################################
 #
 # FUNCTIONS
 #
 ########################################################################
+def getSoftwarePath(software, expected_folder):
+    """
+    @summary: Returns the path to the software from the expected_folder if it is present or from the PATH environment variable.
+    @param software: [str] Name of the software.
+    @param expected_folder: [str] The folder where the software it is supposed to be in mSINGS.
+    @return: [str] The path of the software.
+    """
+    path = os.path.join(expected_folder, software)  # Expected path in mSINGS directory
+    if not os.path.exists(path):
+        path = wich(software)  # Search in PATH
+        if path is None:
+            raise Exception("The software {} cannot be found in environment.".format(software))
+    return path
+
+def wich(software):
+    """
+    @summary: Returns the path to the software from the PATH environment variable.
+    @param software: [str] Name of the software.
+    @return: [str/None] The path of the software or None if it is not found.
+    """
+    soft_path = None
+    PATH = os.environ.get('PATH')
+    for current_folder in reversed(PATH.split(os.pathsep)):  # Reverse PATh elements to kept only the first valid folder
+        eval_path = os.path.join(current_folder, software)
+        if os.path.exists(eval_path):
+            soft_path = eval_path
+    return soft_path
+
 def check_annotation(vcf_infos):
     """
     @summary: Chek if vcf followed the guidelines for annotations (17 are mandatory see full documentation)
@@ -212,6 +242,35 @@ def process(args, log):
     @param args: [Namespace] The namespace extract from the script arguments.
     param log: [Logger] The logger of the script.
     """
+    # Softwares pathes
+    vcf_validator_path = getSoftwarePath("vcf-validator", os.path.join(args.mpa_directory, "bin"))
+
+    # working directory
+    working_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), ".tmp")
+    if not os.path.exists(working_directory):
+        os.makedirs(working_directory)
+
+    # vcf-validator
+    validator_output = os.path.join(working_directory, "vcf-validator.stdout")
+    fout = open(validator_output,'w')
+    validator_output = os.path.join(working_directory, "vcf-validator.stderr")
+    ferr = open(validator_output,'w')
+    log.info("Start vcf-validator")
+    # validator_output = os.path.join(working_directory, os.path.basename(line).rsplit(".", 1)[0] + ".mpileup.txt")
+    # fout = open(mpileup_output,'w')
+    cmd = [
+        vcf_validator_path,
+        args.input
+    ]
+    log.debug("sub-command: " + " ".join(map(str, cmd)))
+    try:
+        subprocess.check_call(cmd, stdout=fout, stderr=ferr)
+    except subprocess.CalledProcessError as e:
+        log.error("VCF is not correctly formated")
+        return
+    fout.close()
+    ferr.close()
+
 
     with open(args.input, 'r') as f:
         log.info("Read VCF")
@@ -348,6 +407,7 @@ class LoggerAction(argparse.Action):
 if __name__ == "__main__":
     # Manage parameters
     parser = argparse.ArgumentParser(description="Annotate VCF with Mobidic Prioritization Algorithm score (MPA).")
+    parser.add_argument('-d', '--mpa-directory', default=os.path.dirname(os.path.dirname(os.path.abspath(__file__))), help='The path to the mSINGS installation folder. [Default: %(default)s]')
     parser.add_argument('-l', '--logging-level', default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], action=LoggerAction, help='The logger level. [Default: %(default)s]')
     parser.add_argument('-v', '--version', action='version', version=__version__)
 

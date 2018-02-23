@@ -166,13 +166,14 @@ perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out p
 ```
 ## TODO
 
-- Check files validity (path for output and file exist for input)
-- Check if valid vcf on input
-- Make a default output
-- Add option to make a TSV output
-- Optimize ranking with predicted deleterious scoring
-- Add PLI score to priorization (see annovar documentation)
-- Add associated array to known what ranking means
+- [ ] Check files validity (path for output and file exist for input)
+- [x] Check if valid vcf on input
+  - [ ] Verify license use
+- [ ] Make a default output
+- [ ] Add option to make a TSV output
+- [ ] Optimize ranking with predicted deleterious scoring
+- [ ] Add PLI score to priorization (see annovar documentation)
+- [ ] Add associated array to known what ranking means
 
 --------------------------------------------------------------------------------
 

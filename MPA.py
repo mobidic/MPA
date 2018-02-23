@@ -26,7 +26,6 @@ import logging  # logging messages
 # FUNCTIONS
 #
 ########################################################################
-
 def check_annotation(vcf_infos):
     """
     @summary: Chek if vcf followed the guidelines for annotations (17 are mandatory see full documentation)

@@ -251,25 +251,26 @@ def process(args, log):
         os.makedirs(working_directory)
 
     # vcf-validator
-    validator_output = os.path.join(working_directory, "vcf-validator.stdout")
-    fout = open(validator_output,'w')
-    validator_output = os.path.join(working_directory, "vcf-validator.stderr")
-    ferr = open(validator_output,'w')
-    log.info("Start vcf-validator")
-    # validator_output = os.path.join(working_directory, os.path.basename(line).rsplit(".", 1)[0] + ".mpileup.txt")
-    # fout = open(mpileup_output,'w')
-    cmd = [
-        vcf_validator_path,
-        args.input
-    ]
-    log.debug("sub-command: " + " ".join(map(str, cmd)))
-    try:
-        subprocess.check_call(cmd, stdout=fout, stderr=ferr)
-    except subprocess.CalledProcessError as e:
-        log.error("VCF is not correctly formated")
-        return
-    fout.close()
-    ferr.close()
+    if(args.check_vcf_file):
+        validator_output = os.path.join(working_directory, "vcf-validator.stdout")
+        fout = open(validator_output,'w')
+        validator_output = os.path.join(working_directory, "vcf-validator.stderr")
+        ferr = open(validator_output,'w')
+        log.info("Start vcf-validator")
+        # validator_output = os.path.join(working_directory, os.path.basename(line).rsplit(".", 1)[0] + ".mpileup.txt")
+        # fout = open(mpileup_output,'w')
+        cmd = [
+            vcf_validator_path,
+            args.input
+        ]
+        log.debug("sub-command: " + " ".join(map(str, cmd)))
+        try:
+            subprocess.check_call(cmd, stdout=fout, stderr=ferr)
+        except subprocess.CalledProcessError as e:
+            log.error("VCF is not correctly formated")
+            return
+        fout.close()
+        ferr.close()
 
 
     with open(args.input, 'r') as f:
@@ -405,6 +406,7 @@ if __name__ == "__main__":
     # Manage parameters
     parser = argparse.ArgumentParser(description="Annotate VCF with Mobidic Prioritization Algorithm score (MPA).")
     parser.add_argument('-d', '--mpa-directory', default=os.path.dirname(os.path.dirname(os.path.abspath(__file__))), help='The path to the mSINGS installation folder. [Default: %(default)s]')
+    parser.add_argument('-c', '--check-vcf-file', help="Check the vcf specification using vcf-validator", action="store_true", default=False)
     parser.add_argument('-l', '--logging-level', default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], action=LoggerAction, help='The logger level. [Default: %(default)s]')
     parser.add_argument('-v', '--version', action='version', version=__version__)
 

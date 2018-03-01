@@ -360,6 +360,8 @@ def process(args, log):
                             adjusted_score["final_score"] = adjusted_score["adjusted"]
                         else:
                             adjusted_score["final_score"] = 10
+
+            # if not ranking default value 7
             if not rank:
                 rank = 7
                 record.INFO['MPA_impact'] = "NULL,"
@@ -367,6 +369,7 @@ def process(args, log):
 
             log.debug("Ranking : " + str(rank))
 
+            # write vcf output
             record.INFO['MPA_impact'] = record.INFO['MPA_impact'][:-1]
             record.INFO['MPA_ranking'] = rank
             for sc in adjusted_score:

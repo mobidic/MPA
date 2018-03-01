@@ -1,4 +1,4 @@
-# Welcome to the MoBiDiC Prioritizing Algorithm (MPA) !
+# Welcome to the MoBiDiC Prioritizing Algorithm (MPA)
 
 - [Welcome to the MoBiDiC Prioritizing Algorithm (MPA) !](#welcome-to-the-mobidic-prioritizing-algorithm-mpa-)
 	- [Overview](#overview)
@@ -17,6 +17,8 @@
 			- [Annotate a VCF](#annotate-a-vcf)
 
 --------------------------------------------------------------------------------
+
+![MPA](doc/img/logo-MPA.png)
 
 ## Overview
 

@@ -36,7 +36,7 @@ variants from the human expert-feeded Universal Mutation Database [1] with
 courtesy regards of curators for pathogenic variants and from the ExAc database
 [2] to define the dataset of neutral variants.
 
-MPA needs an annotated vcf by ANNOVAR and give as an output an annotated vcf with MPA score & ranks. 
+MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with MPA score & ranks. 
 
 ![MPA diagram](doc/img/MPA_diagram.png)
 
@@ -45,6 +45,18 @@ PTC: Premature Truncation Codon : nonsense or frameshift
 ### Citing MPA
 
 > **Yauy et al.** MPA, a free, accessible and efficient pipeline for SNV annotation and prioritization for NGS routine molecular diagnosis. The Journal of Molecular Diagnostics **(In Press, 2018)**
+
+### Input
+
+The MPA uses, as input, an annotated VCF file with Annovar [3] and the following
+databases :
+
+- Curated database: ClinVar [4]
+- Biological assumption : refGene [5]
+- Splicing predicition : Spidex [6], dbscSNV [7]
+- Missense prediction : dbNSFP [8]
+
+> Note : Short tutorial to annotate your VCF with Annovar (cf. [Quick guide for Annovar](#quick-guide-for-annovar)).
 
 ### Output 
 
@@ -111,19 +123,6 @@ $ git clone https://github.com/mobidic/MPA.git
     + PyVCF
 
 > To install python librairies see [Dependencies](#dependencies) section.
-
-#### Annotation
-
-The MPA uses, as input, an annotated VCF file with Annovar [3] and the following
-databases :
-
-- Curated database: ClinVar [4]
-- Biological assumption : refGene [5]
-- Splicing predicition : Spidex [6], dbscSNV [7]
-- Missense prediction : dbNSFP [8]
-
-> In addition you will need to annotate your VCF with Annovar [8]
-(cf. [Quick guide for Annovar](#quick-guide-for-annovar)).
 
 
 ## Quick start

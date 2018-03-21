@@ -36,19 +36,25 @@ variants from the human expert-feeded Universal Mutation Database [1] with
 courtesy regards of curators for pathogenic variants and from the ExAc database
 [2] to define the dataset of neutral variants.
 
+MPA needs an annotated vcf by ANNOVAR and give as an output an annotated vcf with MPA score & ranks. 
+
 ![MPA diagram](doc/img/MPA_diagram.png)
 
 PTC: Premature Truncation Codon : nonsense or frameshift
 
 ### Citing MPA
 
-> **Yauy et al.** An algorithm based on an updated evaluation
-of prediction tools to prioritize variants with a unique score for TTN and NGS
-molecular diagnosis. **(2017)**
+> **Yauy et al.** MPA, a free, accessible and efficient pipeline for SNV annotation and prioritization for NGS routine molecular diagnosis. The Journal of Molecular Diagnostics **(In Press, 2018)**
 
-### Output example
+### Output 
 
-#### Column 1 - 2: Rank from 1 to 7 and score
+#### In a VCF format
+
+VCF is annotated with 3 items : MPA_impact (Clinvar_pathogenicity, splice_impact, stop and frameshift_impact), MPA_ranking (1 to 7) and MPA_score (from 0 to 10).
+
+#### Example for a TSV format
+
+##### Column 1 - 2: Rank from 1 to 7 and score
 
 - 1 - 10db : Pathogenic variants reported on ClinVar
 - 2 - 10sfs : Premature Truncation Codon : nonsense or frameshift
@@ -56,16 +62,16 @@ molecular diagnosis. **(2017)**
 - 6 - 10 to 0 : Missense variants scores
 - 7 - U : Exonic variants with not clearly annotated ORFs
 
-#### Column 3 : Gene Name
+##### Column 3 : Gene Name
 
 - RefGene Nomenclature
 
-#### Column 4, 5, 6... (one column per sample) : Genotype
+##### Column 4, 5, 6... (one column per sample) : Genotype
 - '0/1 : Heterozygous
 - '1/1 : Homozygous
 - '. : Variant not called
 
-#### Additional columns
+##### Additional columns
 
 Common variant annotation by the following databases (in order of appearance) :
 - ExAc
@@ -125,7 +131,7 @@ databases :
 To run the MPA script, use this command line :
 
 ```bash
-python MPA.py -i path/to/input.vcf -o path/to/ouptut.csv
+python MPA.py -i path/to/input.vcf -o path/to/output.vcf
 ```
 
 ### Quick guide for Annovar

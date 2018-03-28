@@ -22,7 +22,6 @@ import re         # regex
 import argparse   # for options
 import logging    # logging messages
 import subprocess # launch subprocess
-import pprint
 import collections
 
 ########################################################################
@@ -245,7 +244,6 @@ def process(args, log):
     param log: [Logger] The logger of the script.
     """
 
-    pp = pprint.PrettyPrinter(indent=4)
     # TODO: improve this ! already existing on pyVCF
     _Info = collections.namedtuple('Info', ['id', 'num', 'type', 'desc', 'source', 'version'])
     info_MPA_adjusted = _Info("MPA_adjusted", ".", "String", "MPA_adjusted : normalize MPA missense score from 0 to 10", "MPA", "0.3")
@@ -271,7 +269,6 @@ def process(args, log):
         vcf_reader.infos.update({'MPA_impact':info_MPA_impact})
         vcf_reader.infos.update({'MPA_ranking':info_MPA_ranking})
         vcf_writer = vcf.Writer(open(args.output, 'w'), vcf_reader)
-        pp.pprint(vcf_reader.infos)
         log.info("Check vcf annotations")
 
         try:

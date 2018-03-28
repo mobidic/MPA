@@ -41,7 +41,7 @@ PTC: Premature Truncation Codon : nonsense or frameshift
 
 ### Citing MPA
 
-> **Yauy et al.** MPA, a free, accessible and efficient pipeline for SNV annotation and prioritization for NGS routine molecular diagnosis. The Journal of Molecular Diagnostics **(In Press, 2018)**
+> **Yauy et al.** MPA, a free, accessible and efficient pipeline for SNV annotation and prioritization for NGS routine molecular diagnosis. **The Journal of Molecular Diagnostics (In Press, 2018)**
 
 ### Input
 
@@ -59,17 +59,18 @@ databases :
 
 #### In a VCF format
 
-VCF is annotated with 3 items : MPA_impact (Clinvar_pathogenicity, splice_impact, stop and frameshift_impact), MPA_ranking (1 to 7) and MPA_score (from 0 to 10).
+VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splice_impact, stop and frameshift_impact), MPA_ranking (1 to 7), MPA_final_score (from 0 to 10) and details for the scoring as MPA_available (from 0 to 10 missense tools which annotate), MPA_deleterious (number of missense tools that annotate pathogenic), MPA_ajusted (normalize missense score from 0 to 10).
 
 #### Example for a TSV format
 
 ##### Column 1 - 2: Rank from 1 to 7 and score
 
-- 1 - 10db : Pathogenic variants reported on ClinVar
-- 2 - 10sfs : Premature Truncation Codon : nonsense or frameshift
-- 3,4,5 - 10spADA, 10spRF, 10sp : Affecting splice variants predictions ranked by algorithm performance robustness
-- 6 - 10 to 0 : Missense variants scores
-- 7 - U : Exonic variants with not clearly annotated ORFs
+- 1 - 10 with Clinvar_pathogenicity : Pathogenic variants reported on ClinVar
+- 2 - 10 with stop or frameshift_impact : Premature Truncation Codon : nonsense or frameshift
+- 3,4,5 - 10 with splicing_impact (ADA, RF, Spidex) : Affecting splice variants predictions ranked by algorithm performance robustness
+- 6 - with splicing_impact (indel) - Indel in splicing regions (as there is no splicing predictions for this case)
+- 7 - 10 to 0 : Missense variants scores
+- 8 - U : Exonic variants with not clearly annotated ORFs
 
 ##### Column 3 : Gene Name
 
@@ -166,8 +167,9 @@ For Spidex database, follow instruction here :
 The following command line annotate a VCF file :
 
 ```bash
-perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out path/to/output/name -remove -protocol refGene,refGene,clinvar_20170130,dbnsfp33a,spidex,dbscsnv11 -operation g,g,f,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,,,
+perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out path/to/output/name -remove -protocol refGene,refGene,clinvar_20170130,dbnsfp33a,spidex,dbscsnv11 -operation g,g,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,
 ```
+
 ## TODO
 
 - [x] Check files validity (path for output and file exist for input)

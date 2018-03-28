@@ -170,17 +170,6 @@ The following command line annotate a VCF file :
 perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out path/to/output/name -remove -protocol refGene,refGene,clinvar_20170130,dbnsfp33a,spidex,dbscsnv11 -operation g,g,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,
 ```
 
-## TODO
-
-- [x] Check files validity (path for output and file exist for input)
-- [x] Check if valid vcf on input
-  - [x] Verify license use
-- [ ] Make a default output
-- [ ] Add option to make a TSV output
-- [ ] Optimize ranking with predicted deleterious scoring
-- [ ] Add PLI score to priorization (see annovar documentation)
-- [ ] Add associated array to known what ranking means
-
 --------------------------------------------------------------------------------
 
 **Montpellier Bioinformatique pour le Diagnostique Clinique (MoBiDiC)**

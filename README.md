@@ -61,9 +61,7 @@ databases :
 
 VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splice_impact, stop and frameshift_impact), MPA_ranking (1 to 7), MPA_final_score (from 0 to 10) and details for the scoring as MPA_available (from 0 to 10 missense tools which annotate), MPA_deleterious (number of missense tools that annotate pathogenic), MPA_ajusted (normalize missense score from 0 to 10).
 
-#### Example for a TSV format
-
-##### Column 1 - 2: Rank from 1 to 7 and score
+#### Ranking : from 1 to 7 and score
 
 - 1 - 10 with Clinvar_pathogenicity : Pathogenic variants reported on ClinVar
 - 2 - 10 with stop or frameshift_impact : Premature Truncation Codon : nonsense or frameshift
@@ -72,29 +70,10 @@ VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splic
 - 7 - 10 to 0 : Missense variants scores
 - 8 - U : Exonic variants with not clearly annotated ORFs
 
-##### Column 3 : Gene Name
+#### With a simple interface (Captain ACHAB)
 
-- RefGene Nomenclature
-
-##### Column 4, 5, 6... (one column per sample) : Genotype
-- '0/1 : Heterozygous
-- '1/1 : Homozygous
-- '. : Variant not called
-
-##### Additional columns
-
-Common variant annotation by the following databases (in order of appearance) :
-- ExAc
-- ClinVar (ClinSig)
--	Func.refGene : localisation of the variation (exonic, splicing, intronic, UTR, ...)
--	ExonicFunc.refGene : mpact of the variation (synonymous, non-synonymous, stop,
-frameshift, non frameshift ...)
--	AAChange.refGene : detailed variation on the transcript and on the protein (c. and p.)
-- CHROM POS	REF	ALT
-- ADA/RF : Splicing predictions [7]
-- Spidex : Splicing predictions [6]
--	Score : Cumulative missense predictions (/10) from dbNFSP [8]
-- Number of tools : Number of in silico tools that annotate at this locus
+Coming soon, a useful and simple interface to easily interpret NGS variants in a single look.
+Find more informations at [Captain ACHAB](https://github.com/mobidic/Captain-ACHAB)
 
 --------------------------------------------------------------------------------
 

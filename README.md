@@ -53,7 +53,13 @@ databases :
 - Splicing predicition : Spidex [6], dbscSNV [7]
 - Missense prediction : dbNSFP [8]
 
-> Note : Short tutorial to annotate your VCF with Annovar (cf. [Quick guide for Annovar](#quick-guide-for-annovar)).
+> Note : Short tutorial to annotate your VCF with Annovar (cf. [Quick guide for Annovar](#quick-guide-for-annovar)). 
+
+> Multi-allelic variants in vcf should be splitted to biallelic variants with bcftools norm.
+
+```bash
+bcftools norm -m - file.vcf > file_breakmulti.vcf
+```
 
 ### Output 
 

@@ -374,7 +374,7 @@ def process(args, log):
                     record.INFO['MPA_impact'] = record.INFO['MPA_impact'] + impact + ","
                     if(meta_impact[impact]<rank or not rank):
                         rank = meta_impact[impact]
-                        if(impact == "unknown_impact"):
+                        if(impact == "unknown_impact" or impact == "missense_impact"):
                             adjusted_score["final_score"] = adjusted_score["adjusted"]
                         else:
                             adjusted_score["final_score"] = 10

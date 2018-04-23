@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3.6
 #
 # Copyright (C) 2018
 #
@@ -122,8 +122,15 @@ def calculate_adjusted_score(scores_impact):
             available += 1
 
     if available > 0:
-        score_adjusted = deleterious/available * 10
+        score_adjusted = float(deleterious)/float(available) * 10
 
+
+    log.debug(">> Return: ")
+    log.debug({
+        "adjusted":score_adjusted,
+        "available":available,
+        "deleterious":deleterious
+    })
 	# Return meta score and available tools
     return {
         "adjusted":score_adjusted,

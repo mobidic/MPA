@@ -229,6 +229,19 @@ def is_frameshift_impact(exonicFuncRefGene):
     else:
         return False
 
+def is_missense_impact(exonicFuncRefGene):
+    """
+    @summary: Predict stop codon effect of the variant
+    @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
+    @return: [int/bool] Rank (7) if is missense impact; False in other cases
+    """
+    match_missense = re.search("nonsynonymous_SNV", exonicFuncRefGene, re.IGNORECASE)
+
+    if(match_missense):
+        return 7
+    else:
+        return False
+
 def is_unknown_impact(exonicFuncRefGene):
     """
     @summary: Predict stop codon effect of the variant
@@ -345,6 +358,9 @@ def process(args, log):
                 # Determine the frameshift impact
                 meta_impact["frameshift_impact"] = is_frameshift_impact(record.INFO['ExonicFunc.refGene'][0])
 
+                # Determine the missense impact
+                meta_impact["missense_impact"] = is_missense_impact(record.INFO['ExonicFunc.refGene'][0])
+
                 # Determine if unknown impact (misunderstand gene)
                 # NOTE: /!\ Be careful to updates regularly your databases /!\
                 meta_impact["unknown_impact"] = is_unknown_impact(record.INFO['ExonicFunc.refGene'][0])
@@ -365,7 +381,7 @@ def process(args, log):
 
             # if not ranking default value 7
             if not rank:
-                rank = 7
+                rank = 8
                 record.INFO['MPA_impact'] = "NULL,"
                 adjusted_score["final_score"] = adjusted_score["adjusted"]
 

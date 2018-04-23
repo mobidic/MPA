@@ -248,9 +248,9 @@ def is_unknown_impact(exonicFuncRefGene):
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
     @return: [int/bool] Rank (8) if is unknown impact; False in other cases
     """
-    match_frameshift = re.search("unknown", exonicFuncRefGene, re.IGNORECASE)
+    match_unknown = re.search("unknown", exonicFuncRefGene, re.IGNORECASE)
 
-    if(match_frameshift):
+    if(match_unknown):
         return 8
     else:
         return False

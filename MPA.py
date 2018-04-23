@@ -215,8 +215,9 @@ def is_frameshift_impact(exonicFuncRefGene):
     @return: [int/bool] Rank (2) if is frameshift impact; False in other cases
     """
     match_frameshift = re.search("frameshift", exonicFuncRefGene, re.IGNORECASE)
+    match_nonframeshift = re.search("nonframeshift", exonicFuncRefGene, re.IGNORECASE)
 
-    if(match_frameshift):
+    if(match_frameshift and not match_nonframeshift):
         return 2
     else:
         return False

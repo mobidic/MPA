@@ -41,7 +41,7 @@ PTC: Premature Truncation Codon : nonsense or frameshift
 
 ### Citing MPA
 
-> **Yauy et al.** MPA, a free, accessible and efficient pipeline for SNV annotation and prioritization for NGS routine molecular diagnosis. **The Journal of Molecular Diagnostics (In Press, 2018)**
+> **Yauy et al.** MPA, a free, accessible and efficient pipeline for SNV annotation and prioritization for NGS routine molecular diagnosis. **The Journal of Molecular Diagnostics (In Press, 2018)** https://doi.org/10.1016/j.jmoldx.2018.03.009
 
 ### Input
 
@@ -65,20 +65,20 @@ bcftools norm -m - file.vcf > file_breakmulti.vcf
 
 #### In a VCF format
 
-VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splice_impact, stop and frameshift_impact), MPA_ranking (1 to 7), MPA_final_score (from 0 to 10) and details for the scoring as MPA_available (from 0 to 10 missense tools which annotate), MPA_deleterious (number of missense tools that annotate pathogenic), MPA_ajusted (normalize missense score from 0 to 10).
+VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splice_impact, stop and frameshift_impact, missense_impact and unknown_impact), MPA_ranking (1 to 8), MPA_final_score (from 0 to 10) and details for the scoring as MPA_available (from 0 to 10 missense tools which annotate), MPA_deleterious (number of missense tools that annotate pathogenic), MPA_ajusted (normalize missense score from 0 to 10).
 
 #### Ranking : from 1 to 7 and score
 
-- 1 - 10 with Clinvar_pathogenicity : Pathogenic variants reported on ClinVar
+- 1 - 10 with clinvar_pathogenicity : Pathogenic variants reported on ClinVar
 - 2 - 10 with stop or frameshift_impact : Premature Truncation Codon : nonsense or frameshift
 - 3,4,5 - 10 with splicing_impact (ADA, RF, Spidex) : Affecting splice variants predictions ranked by algorithm performance robustness
 - 6 - with splicing_impact (indel) - Indel in splicing regions (as there is no splicing predictions for this case)
-- 7 - 10 to 0 : Missense variants scores
-- 8 - U : Exonic variants with not clearly annotated ORFs
+- 7 - with missense_impact (10 to 0) : Missense variants scores
+- 8 - with unknown_impact : Exonic variants with not clearly annotated ORFs and splicing variants not predicted pathogenic
 
 #### With a simple interface (Captain ACHAB)
 
-Coming soon, a useful and simple interface to easily interpret NGS variants in a single look.
+Coming soon, a useful and simple interface to easily interpret NGS variants with a single look.
 Find more informations at [Captain ACHAB](https://github.com/mobidic/Captain-ACHAB)
 
 --------------------------------------------------------------------------------

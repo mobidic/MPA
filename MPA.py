@@ -233,7 +233,7 @@ def is_unknown_impact(exonicFuncRefGene):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
-    @return: [int/bool] Rank (8) if is frameshift impact; False in other cases
+    @return: [int/bool] Rank (8) if is unknown impact; False in other cases
     """
     match_frameshift = re.search("unknown", exonicFuncRefGene, re.IGNORECASE)
 

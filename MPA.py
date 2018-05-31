@@ -276,11 +276,6 @@ def process(args, log):
     info_MPA_impact = _Info("MPA_impact", ".", "String", "MPA_impact : pathogenic predictions (clinvar_pathogenicity, splice_impact, stop and frameshift_impact)", "MPA", "0.3")
     info_MPA_ranking = _Info("MPA_ranking", ".", "String", "MPA_ranking : prioritize variants with ranks from 1 to 7", "MPA", "0.3")
 
-    # working directory
-    working_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), ".tmp")
-    if not os.path.exists(working_directory):
-        os.makedirs(working_directory)
-
     with open(args.input, 'r') as f:
         log.info("Read VCF")
         vcf_reader = vcf.Reader(f)
@@ -298,7 +293,7 @@ def process(args, log):
             check_annotation(vcf_reader.infos)
         except SystemExit as e:
             log.error(str(e))
-            return
+            return 1
 
         log.info("Read the each variants")
         for record in vcf_reader:
@@ -427,7 +422,7 @@ class LoggerAction(argparse.Action):
 if __name__ == "__main__":
     # Manage parameters
     parser = argparse.ArgumentParser(description="Annotate VCF with Mobidic Prioritization Algorithm score (MPA).")
-    parser.add_argument('-d', '--mpa-directory', default=os.path.dirname(os.path.abspath(__file__)), help='The path to the mSINGS installation folder. [Default: %(default)s]')
+    parser.add_argument('-d', '--mpa-directory', default=os.path.dirname(os.path.abspath(__file__)), help='The path to the MPA installation folder. [Default: %(default)s]')
     parser.add_argument('-l', '--logging-level', default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], action=LoggerAction, help='The logger level. [Default: %(default)s]')
     parser.add_argument('-v', '--version', action='version', version=__version__)
 

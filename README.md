@@ -78,7 +78,7 @@ VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splic
 
 #### With a simple interface (Captain ACHAB)
 
-Coming soon, a useful and simple interface to easily interpret NGS variants with a single look.
+MPA is a part of [MobiDL](https://github.com/mobidic/MobiDL) workflow. MPA is the core of ranking in our useful and simple interface to easily interpret NGS variants with a single look named Captain ACHAB.
 Find more informations at [Captain ACHAB](https://github.com/mobidic/Captain-ACHAB)
 
 --------------------------------------------------------------------------------

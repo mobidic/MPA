@@ -6,7 +6,7 @@
 __author__ = 'Henri Pegeot and Kevin Yauy and Charles Van Goethem'
 __copyright__ = 'Copyright (C) 2018'
 __license__ = 'Academic License Agreement'
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -80,7 +80,7 @@ def check_annotation(vcf_infos):
     	'fathmm-MKL_coding_pred',
     	'MetaSVM_pred',
     	'MetaLR_pred',
-    	'CLINSIG'
+    	'CLNSIG'
     ]
 
     if(not set(vcf_keys).issubset(vcf_infos)):
@@ -339,7 +339,7 @@ def process(args, log):
             adjusted_score = calculate_adjusted_score(impacts_scores)
 
             # Determine if variant is well annotated with clinvar as deleterious
-            meta_impact["clinvar_pathogenicity"] = is_clinvar_pathogenic(record.INFO['CLINSIG'][0])
+            meta_impact["clinvar_pathogenicity"] = is_clinvar_pathogenic(record.INFO['CLNSIG'][0])
 
             # Determine the impact on splicing
             meta_impact["splice_impact"] = is_splice_impact(splices_scores, record.is_indel, record.INFO['Func.refGene'][0])

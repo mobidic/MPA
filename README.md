@@ -138,7 +138,7 @@ In Annovar folder, download all database needed with annotate_variation.pl:
 
 ```bash
 perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar refGene humandb/
-perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar clinvar_20170130 humandb/
+perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar clinvar_20180603 humandb/
 perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbnsfp33a  humandb/
 perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbscsnv11 humandb/
 ```

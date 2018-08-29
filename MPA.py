@@ -151,9 +151,10 @@ def is_clinvar_pathogenic(clinsig):
     # Test if "Pathogenic" or "Benign" match on clinsig
     match_pathogenic = re.search("pathogenic", clinsig, re.IGNORECASE)
     match_benign = re.search("benign", clinsig, re.IGNORECASE)
+    match_conflicting = re.search("conflicting", clinsig, re.IGNORECASE)
 
     # Determine if clinvar as no doubt about pathogenicity
-    if(match_pathogenic and not match_benign):
+    if(match_pathogenic and not match_benign and not match_conflicting):
         return 1
     else:
         return False

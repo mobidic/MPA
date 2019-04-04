@@ -69,7 +69,7 @@ def check_annotation(vcf_infos):
     	'Func.refGene',
     	'dbscSNV_ADA_SCORE',
     	'dbscSNV_RF_SCORE',
-    	'dpsi_zscore',
+    	'dpsi_zscore',     # TODO: Replace for splice AI
     	'SIFT_pred',
     	'Polyphen2_HDIV_pred',
     	'Polyphen2_HVAR_pred',
@@ -180,6 +180,7 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     )
 
     # If Zscore predict splicing impact but no ADA and RF annotation
+    # TODO: Replace for splice AI
     Zscore_splice = (splices_scores["Zscore"] != None and
         splices_scores["ADA"] == None and
         splices_scores["RF"] == None and
@@ -195,6 +196,7 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
         return 3
     elif(ADA_splice):
         return 4
+    # TODO: Replace for splice AI
     elif(Zscore_splice):
         return 5
     elif(home_splice):
@@ -321,6 +323,7 @@ def process(args, log):
             }
 
             # Splicing impact scores
+            # TODO: Replace for splice AI
             splices_scores = {
                 "ADA": record.INFO['dbscSNV_ADA_SCORE'][0],
                 "RF": record.INFO['dbscSNV_RF_SCORE'][0],

@@ -195,10 +195,16 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
         spliceAI_annot[annot_split[0]] = annot_split[1]
 
    spliceAI_score = (splices_scores["spliceAI"] != None and
-        (spliceAI_annot["DS_AG"] > 0.05 or
-        spliceAI_annot["DS_AL"] > 0.05 or
-        spliceAI_annot["DS_DG"] > 0.05 or
-        spliceAI_annot["DS_DL"] > 0.05 )
+        (spliceAI_annot["DS_AG"] > 0.5 or
+        spliceAI_annot["DS_AL"] > 0.5 or
+        spliceAI_annot["DS_DG"] > 0.5 or
+        spliceAI_annot["DS_DL"] > 0.5 )
+    )
+   spliceAI_score_low = (splices_scores["spliceAI"] != None and
+        (spliceAI_annot["DS_AG"] > 0.2 or
+        spliceAI_annot["DS_AL"] > 0.2 or
+        spliceAI_annot["DS_DG"] > 0.2 or
+        spliceAI_annot["DS_DL"] > 0.2 )
     )
 
     # Home made prediction of splice impact
@@ -214,8 +220,10 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     # elif(Zscore_splice):
     elif(spliceAI_score):
         return 5
-    elif(home_splice):
+    elif(spliceAI_score_low):
         return 6
+    elif(home_splice):
+        return 7
     else:
         return False
 

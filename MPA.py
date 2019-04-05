@@ -69,8 +69,9 @@ def check_annotation(vcf_infos):
     	'Func.refGene',
     	'dbscSNV_ADA_SCORE',
     	'dbscSNV_RF_SCORE',
-    	'dpsi_zscore',     # TODO: Replace for splice AI
-    	'SIFT_pred',
+    	#'dpsi_zscore',
+        'spliceai_filtered',
+        'SIFT_pred',
     	'Polyphen2_HDIV_pred',
     	'Polyphen2_HVAR_pred',
     	'LRT_pred',
@@ -181,10 +182,23 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
 
     # If Zscore predict splicing impact but no ADA and RF annotation
     # TODO: Replace for splice AI
-    Zscore_splice = (splices_scores["Zscore"] != None and
-        splices_scores["ADA"] == None and
-        splices_scores["RF"] == None and
-        float(splices_scores["Zscore"]) < -2
+    # Zscore_splice = (splices_scores["Zscore"] != None and
+    #     splices_scores["ADA"] == None and
+    #     splices_scores["RF"] == None and
+    #     float(splices_scores["Zscore"]) < -2
+    # )
+
+    spliceAI_split = splices_scores["spliceAI"].split("\\x3b")
+    spliceAI_annot = dict()
+    for annot in spliceAI_split:
+        annot_split = annot.split("\\x3d")
+        spliceAI_annot[annot_split[0]] = annot_split[1]
+
+   spliceAI_score = (splices_scores["spliceAI"] != None and
+        (spliceAI_annot["DS_AG"] > 0.05 or
+        spliceAI_annot["DS_AL"] > 0.05 or
+        spliceAI_annot["DS_DG"] > 0.05 or
+        spliceAI_annot["DS_DL"] > 0.05 )
     )
 
     # Home made prediction of splice impact
@@ -197,7 +211,8 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     elif(ADA_splice):
         return 4
     # TODO: Replace for splice AI
-    elif(Zscore_splice):
+    # elif(Zscore_splice):
+    elif(spliceAI_score):
         return 5
     elif(home_splice):
         return 6
@@ -327,7 +342,8 @@ def process(args, log):
             splices_scores = {
                 "ADA": record.INFO['dbscSNV_ADA_SCORE'][0],
                 "RF": record.INFO['dbscSNV_RF_SCORE'][0],
-                "Zscore":record.INFO['dpsi_zscore'][0],
+                # "Zscore":record.INFO['dpsi_zscore'][0],
+                "spliceAI":record.INFO['spliceai_filtered'][0],
             }
 
             # MPA aggregate the information to predict some effects

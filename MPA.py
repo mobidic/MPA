@@ -194,7 +194,13 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
         annot_split = annot.split("\\x3d")
         spliceAI_annot[annot_split[0]] = annot_split[1]
 
-   spliceAI_score = (splices_scores["spliceAI"] != None and
+   spliceAI_score_high = (splices_scores["spliceAI"] != None and
+        (spliceAI_annot["DS_AG"] > 0.8 or
+        spliceAI_annot["DS_AL"] > 0.8 or
+        spliceAI_annot["DS_DG"] > 0.8 or
+        spliceAI_annot["DS_DL"] > 0.8 )
+    )
+   spliceAI_score_moderate = (splices_scores["spliceAI"] != None and
         (spliceAI_annot["DS_AG"] > 0.5 or
         spliceAI_annot["DS_AL"] > 0.5 or
         spliceAI_annot["DS_DG"] > 0.5 or
@@ -218,12 +224,14 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
         return 4
     # TODO: Replace for splice AI
     # elif(Zscore_splice):
-    elif(spliceAI_score):
+elif(spliceAI_score_high):
         return 5
-    elif(spliceAI_score_low):
+    elif(spliceAI_score_moderate):
         return 6
-    elif(home_splice):
+    elif(spliceAI_score_low):
         return 7
+    elif(home_splice):
+        return 8
     else:
         return False
 
@@ -399,6 +407,10 @@ def process(args, log):
                         rank = meta_impact[impact]
                         if(impact == "unknown_impact" or impact == "missense_impact"):
                             adjusted_score["final_score"] = adjusted_score["adjusted"]
+                        elif(impact == "splice" and meta_impact["splice"] = 7):
+                            adjusted_score["final_score"] = 8
+                        elif(impact == "splice" and meta_impact["splice"] = 8):
+                            adjusted_score["final_score"] = 6
                         else:
                             adjusted_score["final_score"] = 10
 

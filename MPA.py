@@ -187,9 +187,9 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     #     splices_scores["RF"] == None and
     #     float(splices_scores["Zscore"]) < -2
     # )
-
-    spliceAI_split = splices_scores["spliceAI"].split("\\x3b")
-    spliceAI_annot = dict()
+    if(splices_scores["spliceAI"] != None):
+        spliceAI_split = splices_scores["spliceAI"].split("\\x3b")
+        spliceAI_annot = dict()
     for annot in spliceAI_split:
         annot_split = annot.split("\\x3d")
         spliceAI_annot[annot_split[0]] = annot_split[1]

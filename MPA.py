@@ -407,9 +407,9 @@ def process(args, log):
                         rank = meta_impact[impact]
                         if(impact == "unknown_impact" or impact == "missense_impact"):
                             adjusted_score["final_score"] = adjusted_score["adjusted"]
-                        elif(impact == "splice" and meta_impact["splice"] = 7):
+                        elif(impact == "splice_impact" and meta_impact["splice_impact"] = 7):
                             adjusted_score["final_score"] = 8
-                        elif(impact == "splice" and meta_impact["splice"] = 8):
+                        elif(impact == "splice_impact" and meta_impact["splice_impact"] = 8):
                             adjusted_score["final_score"] = 6
                         else:
                             adjusted_score["final_score"] = 10

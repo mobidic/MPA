@@ -194,19 +194,19 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
         annot_split = annot.split("\\x3d")
         spliceAI_annot[annot_split[0]] = annot_split[1]
 
-   spliceAI_score_high = (splices_scores["spliceAI"] != None and
+    spliceAI_score_high = (splices_scores["spliceAI"] != None and
         (spliceAI_annot["DS_AG"] > 0.8 or
         spliceAI_annot["DS_AL"] > 0.8 or
         spliceAI_annot["DS_DG"] > 0.8 or
         spliceAI_annot["DS_DL"] > 0.8 )
-    )
-   spliceAI_score_moderate = (splices_scores["spliceAI"] != None and
+    	)
+    spliceAI_score_moderate = (splices_scores["spliceAI"] != None and
         (spliceAI_annot["DS_AG"] > 0.5 or
         spliceAI_annot["DS_AL"] > 0.5 or
         spliceAI_annot["DS_DG"] > 0.5 or
         spliceAI_annot["DS_DL"] > 0.5 )
     )
-   spliceAI_score_low = (splices_scores["spliceAI"] != None and
+    spliceAI_score_low = (splices_scores["spliceAI"] != None and
         (spliceAI_annot["DS_AG"] > 0.2 or
         spliceAI_annot["DS_AL"] > 0.2 or
         spliceAI_annot["DS_DG"] > 0.2 or
@@ -224,7 +224,7 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
         return 4
     # TODO: Replace for splice AI
     # elif(Zscore_splice):
-elif(spliceAI_score_high):
+    elif(spliceAI_score_high):
         return 5
     elif(spliceAI_score_moderate):
         return 6
@@ -407,9 +407,9 @@ def process(args, log):
                         rank = meta_impact[impact]
                         if(impact == "unknown_impact" or impact == "missense_impact"):
                             adjusted_score["final_score"] = adjusted_score["adjusted"]
-                        elif(impact == "splice_impact" and meta_impact["splice_impact"] = 7):
+                        elif(impact == "splice_impact" and meta_impact["splice_impact"] == 7):
                             adjusted_score["final_score"] = 8
-                        elif(impact == "splice_impact" and meta_impact["splice_impact"] = 8):
+                        elif(impact == "splice_impact" and meta_impact["splice_impact"] == 8):
                             adjusted_score["final_score"] = 6
                         else:
                             adjusted_score["final_score"] = 10

@@ -190,27 +190,26 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     if(splices_scores["spliceAI"] != None):
         spliceAI_split = splices_scores["spliceAI"].split("\\x3b")
         spliceAI_annot = dict()
-    for annot in spliceAI_split:
-        annot_split = annot.split("\\x3d")
-        spliceAI_annot[annot_split[0]] = annot_split[1]
-
+        for annot in spliceAI_split:
+            annot_split = annot.split("\\x3d")
+            spliceAI_annot[annot_split[0]] = annot_split[1]
     spliceAI_score_high = (splices_scores["spliceAI"] != None and
-        (spliceAI_annot["DS_AG"] > 0.8 or
-        spliceAI_annot["DS_AL"] > 0.8 or
-        spliceAI_annot["DS_DG"] > 0.8 or
-        spliceAI_annot["DS_DL"] > 0.8 )
+        (float(spliceAI_annot["DS_AG"]) > 0.8 or
+        float(spliceAI_annot["DS_AL"]) > 0.8 or
+        float(spliceAI_annot["DS_DG"]) > 0.8 or
+        float(spliceAI_annot["DS_DL"]) > 0.8 )
     	)
     spliceAI_score_moderate = (splices_scores["spliceAI"] != None and
-        (spliceAI_annot["DS_AG"] > 0.5 or
-        spliceAI_annot["DS_AL"] > 0.5 or
-        spliceAI_annot["DS_DG"] > 0.5 or
-        spliceAI_annot["DS_DL"] > 0.5 )
+        (float(spliceAI_annot["DS_AG"]) > 0.5 or
+        float(spliceAI_annot["DS_AL"]) > 0.5 or
+        float(spliceAI_annot["DS_DG"]) > 0.5 or
+        float(spliceAI_annot["DS_DL"]) > 0.5 )
     )
     spliceAI_score_low = (splices_scores["spliceAI"] != None and
-        (spliceAI_annot["DS_AG"] > 0.2 or
-        spliceAI_annot["DS_AL"] > 0.2 or
-        spliceAI_annot["DS_DG"] > 0.2 or
-        spliceAI_annot["DS_DL"] > 0.2 )
+        (float(spliceAI_annot["DS_AG"]) > 0.2 or
+        float(spliceAI_annot["DS_AL"]) > 0.2 or
+        float(spliceAI_annot["DS_DG"]) > 0.2 or
+        float(spliceAI_annot["DS_DL"]) > 0.2 )
     )
 
     # Home made prediction of splice impact

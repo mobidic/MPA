@@ -37,7 +37,9 @@ MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with M
 
 ![MPA diagram](doc/img/MPA_diagram2.png)
 
-PTC: Premature Truncation Codon : nonsense or frameshift
+\*PTC: Premature Truncation Codon : nonsense or frameshift
+
+\**: intronic positions between -20 and +5
 
 ### Citing MPA
 
@@ -54,6 +56,8 @@ databases :
 - Missense prediction : dbNSFP [8]
 
 > Note : Short tutorial to annotate your VCF with Annovar (cf. [Quick guide for Annovar](#quick-guide-for-annovar)). 
+
+> Update April 2019: spliceAI annotations now replace spidex. Waiting for spliceAI to be included in ANNOVAR, Files for this dataset in the proper format are available upon request (hg19 or hg38).
 
 > Multi-allelic variants in vcf should be splitted to biallelic variants with bcftools norm.
 
@@ -143,9 +147,11 @@ perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbnsfp33a  hu
 perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbscsnv11 humandb/
 ```
 
-For Spidex database, follow instruction here :
+Deprecatd: For Spidex database, follow instruction here :
 
 > [http://www.openbioinformatics.org/annovar/spidex_download_form.php](http://www.openbioinformatics.org/annovar/spidex_download_form.php)
+
+> Update April 2019: spliceAI annotations now replace spidex. Waiting for spliceAI to be included in ANNOVAR, Files for this dataset in the proper format are available upon request (hg19 or hg38).
 
 #### Annotate a VCF
 

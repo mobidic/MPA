@@ -1,12 +1,13 @@
 #!/usr/bin/env python3.6
 #
-# Copyright (C) 2018
+# Copyright (C) 2019
 #
 
+name = "mobidic_mpa_1"
 __author__ = 'Henri Pegeot and Kevin Yauy and Charles Van Goethem'
-__copyright__ = 'Copyright (C) 2018'
+__copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.2.1'
+__version__ = '0.3.0.a0'
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'prod'
 

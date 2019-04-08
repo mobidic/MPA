@@ -57,7 +57,7 @@ databases :
 
 > Note : Short tutorial to annotate your VCF with Annovar (cf. [Quick guide for Annovar](#quick-guide-for-annovar)). 
 
-> Update April 2019: spliceAI annotations now replace spidex. Waiting for spliceAI to be included in ANNOVAR, Files for this dataset in the proper format are available upon request (hg19 or hg38).
+> **Update April 2019: spliceAI annotations now replace spidex. Waiting for spliceAI to be included in ANNOVAR, Files for this dataset in the proper format are available upon request (hg19 or hg38).**
 
 > Multi-allelic variants in vcf should be splitted to biallelic variants with bcftools norm.
 
@@ -151,7 +151,7 @@ Deprecatd: For Spidex database, follow instruction here :
 
 > [http://www.openbioinformatics.org/annovar/spidex_download_form.php](http://www.openbioinformatics.org/annovar/spidex_download_form.php)
 
-> Update April 2019: spliceAI annotations now replace spidex. Waiting for spliceAI to be included in ANNOVAR, Files for this dataset in the proper format are available upon request (hg19 or hg38).
+> **Update April 2019: spliceAI annotations now replace spidex. Waiting for spliceAI to be included in ANNOVAR, Files for this dataset in the proper format are available upon request (hg19 or hg38).**
 
 #### Annotate a VCF
 

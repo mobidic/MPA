@@ -33,7 +33,7 @@ variants from the human expert-feeded Universal Mutation Database [1] with
 courtesy regards of curators for pathogenic variants and from the ExAc database
 [2] to define the dataset of neutral variants.
 
-MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with MPA score & ranks. 
+MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with MPA score & ranks.
 
 ![MPA diagram](doc/img/MPA_diagram.png)
 
@@ -53,7 +53,7 @@ databases :
 - Splicing predicition : Spidex [6], dbscSNV [7]
 - Missense prediction : dbNSFP [8]
 
-> Note : Short tutorial to annotate your VCF with Annovar (cf. [Quick guide for Annovar](#quick-guide-for-annovar)). 
+> Note : Short tutorial to annotate your VCF with Annovar (cf. [Quick guide for Annovar](#quick-guide-for-annovar)).
 
 > Multi-allelic variants in vcf should be splitted to biallelic variants with bcftools norm.
 
@@ -61,7 +61,7 @@ databases :
 bcftools norm -m - file.vcf > file_breakmulti.vcf
 ```
 
-### Output 
+### Output
 
 #### In a VCF format
 

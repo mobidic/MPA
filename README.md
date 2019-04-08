@@ -147,7 +147,7 @@ perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbnsfp33a  hu
 perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbscsnv11 humandb/
 ```
 
-Deprecatd: For Spidex database, follow instruction here :
+Deprecated: For Spidex database, follow instruction here :
 
 > [http://www.openbioinformatics.org/annovar/spidex_download_form.php](http://www.openbioinformatics.org/annovar/spidex_download_form.php)
 
@@ -158,7 +158,7 @@ Deprecatd: For Spidex database, follow instruction here :
 The following command line annotate a VCF file :
 
 ```bash
-perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out path/to/output/name -remove -protocol refGene,refGene,clinvar_20180603,dbnsfp33a,spidex,dbscsnv11 -operation g,g,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,
+perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out path/to/output/name -remove -protocol refGene,refGene,clinvar_20180603,dbnsfp33a,spliceai_filtered,dbscsnv11 -operation g,g,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,
 ```
 
 --------------------------------------------------------------------------------

@@ -35,13 +35,13 @@ courtesy regards of curators for pathogenic variants and from the ExAc database
 
 MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with MPA score & ranks. 
 
-![MPA diagram](doc/img/MPA_diagram.png)
+![MPA diagram](doc/img/MPA_diagram2.png)
 
 PTC: Premature Truncation Codon : nonsense or frameshift
 
 ### Citing MPA
 
-> **Yauy et al.** MPA, a free, accessible and efficient pipeline for SNV annotation and prioritization for NGS routine molecular diagnosis. **The Journal of Molecular Diagnostics (In Press, 2018)** https://doi.org/10.1016/j.jmoldx.2018.03.009
+> **Yauy et al.** MPA, a free, accessible and efficient pipeline for SNV annotation and prioritization for NGS routine molecular diagnosis. **The Journal of Molecular Diagnostics (2018)** https://doi.org/10.1016/j.jmoldx.2018.03.009
 
 ### Input
 
@@ -50,7 +50,7 @@ databases :
 
 - Curated database: ClinVar [4]
 - Biological assumption : refGene [5]
-- Splicing predicition : Spidex [6], dbscSNV [7]
+- Splicing predicition : SpliceAI [6], dbscSNV [7]
 - Missense prediction : dbNSFP [8]
 
 > Note : Short tutorial to annotate your VCF with Annovar (cf. [Quick guide for Annovar](#quick-guide-for-annovar)). 
@@ -71,14 +71,14 @@ VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splic
 
 - 1 - 10 with clinvar_pathogenicity : Pathogenic variants reported on ClinVar
 - 2 - 10 with stop or frameshift_impact : Premature Truncation Codon : nonsense or frameshift
-- 3,4,5 - 10 with splicing_impact (ADA, RF, Spidex) : Affecting splice variants predictions ranked by algorithm performance robustness
+- 3,4,5 - 10 with splicing_impact (ADA, RF, spliceAI) : Affecting splice variants predictions ranked by algorithm performance robustness and strength
 - 6 - with splicing_impact (indel) - Indel in splicing regions (as there is no splicing predictions for this case)
 - 7 - with missense_impact (10 to 0) : Missense variants scores
 - 8 - with unknown_impact : Exonic variants with not clearly annotated ORFs and splicing variants not predicted pathogenic
 
 #### With a simple interface (Captain ACHAB)
 
-MPA is a part of [MobiDL](https://github.com/mobidic/MobiDL) workflow. MPA is the core of ranking in our useful and simple interface to easily interpret NGS variants with a single look named Captain ACHAB.
+MPA is a part of [MobiDL](https://github.com/mobidic/MobiDL) captainAchab workflow. MPA is the core of ranking in our useful and simple interface to easily interpret NGS variants at a glance named Captain ACHAB.
 Find more informations at [Captain ACHAB](https://github.com/mobidic/Captain-ACHAB)
 
 --------------------------------------------------------------------------------
@@ -174,6 +174,6 @@ France
 3. Wang, K., Li, M. & Hakonarson, H. ANNOVAR: functional annotation of genetic variants from high-throughput sequencing data. *Nucleic Acids Res.* **38**, e164–e164 (2010).
 4. Landrum, M. J. et al. ClinVar: public archive of interpretations of clinically relevant variants. *Nucleic Acids Res.* **44**, D862–D868 (2015).
 5. O’Leary, N. A. et al. Reference sequence (RefSeq) database at NCBI: current status, taxonomic expansion, and functional annotation. *Nucleic Acids Res.* **44**, D733–45 (2016).
-6. Xiong, H. Y. et al. RNA splicing. The human splicing code reveals new insights into the genetic determinants of disease. *Science* **347**, 1254806 (2015).
+6. Jaganathan et al. Predicting Splicing from Primary Sequence with Deep Learning. *Cell* **176**, 535-548 (2019).
 7. Jian, X., Boerwinkle, E. & Liu, X. In silico prediction of splice-altering single nucleotide variants in the human genome. *Nucleic Acids Res.* **42**, 13534–13544 (2014).
 8. Liu, X., Wu, C., Li, C. & Boerwinkle, E. dbNSFP v3.0: A One-Stop Database of Functional Predictions and Annotations for Human Nonsynonymous and Splice-Site SNVs. *Hum. Mutat.* **37**, 235–241 (2016).

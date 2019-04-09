@@ -3,19 +3,12 @@
 # Copyright (C) 2019
 #
 
-<<<<<<< HEAD:mobidic_MPA/__init__.py
 name = "mobidic_mpa"
-__author__ = 'Henri Pegeot and Kevin Yauy and Charles Van Goethem'
-__copyright__ = 'Copyright (C) 2019'
-__license__ = 'Academic License Agreement'
-__version__ = '0.4.0.a0'
-=======
 __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
 __version__ = '0.3.0'
->>>>>>> master:MPA.py
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'dev'
 

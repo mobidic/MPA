@@ -7,9 +7,9 @@ __author__ = ['Mobidic']
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.3.0a0'
+__version__ = '0.4.0a0'
 __email__ = 'h-pegeot@chu-montpellier.fr'
-__status__ = 'prod'
+__status__ = 'dev'
 
 import setuptools
 
@@ -17,7 +17,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="mobidic_mpa_1",
+    name="mobidic_mpa",
     version=__version__,
     author=__author__,
     author_email=__email__,

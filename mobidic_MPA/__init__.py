@@ -3,11 +3,19 @@
 # Copyright (C) 2019
 #
 
+<<<<<<< HEAD:mobidic_MPA/__init__.py
 name = "mobidic_mpa"
 __author__ = 'Henri Pegeot and Kevin Yauy and Charles Van Goethem'
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
 __version__ = '0.4.0.a0'
+=======
+__author__ = 'Mobidic'
+__authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
+__copyright__ = 'Copyright (C) 2019'
+__license__ = 'Academic License Agreement'
+__version__ = '0.3.0'
+>>>>>>> master:MPA.py
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'dev'
 
@@ -191,27 +199,26 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     if(splices_scores["spliceAI"] != None):
         spliceAI_split = splices_scores["spliceAI"].split("\\x3b")
         spliceAI_annot = dict()
-    for annot in spliceAI_split:
-        annot_split = annot.split("\\x3d")
-        spliceAI_annot[annot_split[0]] = annot_split[1]
-
+        for annot in spliceAI_split:
+            annot_split = annot.split("\\x3d")
+            spliceAI_annot[annot_split[0]] = annot_split[1]
     spliceAI_score_high = (splices_scores["spliceAI"] != None and
-        (spliceAI_annot["DS_AG"] > 0.8 or
-        spliceAI_annot["DS_AL"] > 0.8 or
-        spliceAI_annot["DS_DG"] > 0.8 or
-        spliceAI_annot["DS_DL"] > 0.8 )
+        (float(spliceAI_annot["DS_AG"]) > 0.8 or
+        float(spliceAI_annot["DS_AL"]) > 0.8 or
+        float(spliceAI_annot["DS_DG"]) > 0.8 or
+        float(spliceAI_annot["DS_DL"]) > 0.8 )
     	)
     spliceAI_score_moderate = (splices_scores["spliceAI"] != None and
-        (spliceAI_annot["DS_AG"] > 0.5 or
-        spliceAI_annot["DS_AL"] > 0.5 or
-        spliceAI_annot["DS_DG"] > 0.5 or
-        spliceAI_annot["DS_DL"] > 0.5 )
+        (float(spliceAI_annot["DS_AG"]) > 0.5 or
+        float(spliceAI_annot["DS_AL"]) > 0.5 or
+        float(spliceAI_annot["DS_DG"]) > 0.5 or
+        float(spliceAI_annot["DS_DL"]) > 0.5 )
     )
     spliceAI_score_low = (splices_scores["spliceAI"] != None and
-        (spliceAI_annot["DS_AG"] > 0.2 or
-        spliceAI_annot["DS_AL"] > 0.2 or
-        spliceAI_annot["DS_DG"] > 0.2 or
-        spliceAI_annot["DS_DL"] > 0.2 )
+        (float(spliceAI_annot["DS_AG"]) > 0.2 or
+        float(spliceAI_annot["DS_AL"]) > 0.2 or
+        float(spliceAI_annot["DS_DG"]) > 0.2 or
+        float(spliceAI_annot["DS_DL"]) > 0.2 )
     )
 
     # Home made prediction of splice impact

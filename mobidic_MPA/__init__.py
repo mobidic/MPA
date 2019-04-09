@@ -8,7 +8,7 @@ __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.3.0'
+__version__ = '0.4.0a'
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'dev'
 

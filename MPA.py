@@ -140,12 +140,33 @@ def calculate_adjusted_score(scores_impact):
         "deleterious":deleterious
     }
 
+# TODO: modulate clinvar score
 def is_clinvar_pathogenic(clinsig):
     """
     @summary: Define if clinvar annotation predict this variant as pathogenic
     @param clinsig: [str] The clinvar annotation provided by the vcf
     @return: [int/bool] Rank (1) if is pathogenic and no Benign; False in other cases
     """
+    # possible clinsig
+    clinsig_possible = {
+        "Benign": 0,
+        "Benign/Likely_benign": 1,
+        "Likely_benign": 2,
+        "Uncertain_significance": 3,
+        "Likely_pathogenic": 4,
+        "Pathogenic/Likely_pathogenic": 5,
+        "Pathogenic": 6,
+        "other": None,
+        "Affects": None,
+        "drug_response": None,
+        "confers_sensitivity": None,
+        "risk_factor": None,
+        "association": None,
+        "association_not_found": None,
+        "protective": None,
+        "not_provided": None,
+        "conflicting_data_from_submitters": None,
+    }
     # No clinsig available
     if clinsig == None:
         return False
@@ -168,7 +189,7 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     @param splices_scores: [dict] The dictionnary of splicing scores
     @param is_indel: [bool] Boolean to define if variants is indel or not
     @param funcRefGene: [str] Annotation provided by refGene about the biological function
-    @return: [int/bool] Rank (3,4,5 or 6) if is splicing impact; False in other cases
+    @return: [int/bool] Rank (3,4,5,6,7 or 8) if is splicing impact; False in other cases
     """
 
     # If ADA predict splicing impact
@@ -267,12 +288,12 @@ def is_missense_impact(exonicFuncRefGene):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
-    @return: [int/bool] Rank (7) if is missense impact; False in other cases
+    @return: [int/bool] Rank (9) if is missense impact; False in other cases
     """
     match_missense = re.search("nonsynonymous_SNV", exonicFuncRefGene, re.IGNORECASE)
 
     if(match_missense):
-        return 7
+        return 9
     else:
         return False
 
@@ -280,12 +301,12 @@ def is_unknown_impact(exonicFuncRefGene):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
-    @return: [int/bool] Rank (8) if is unknown impact; False in other cases
+    @return: [int/bool] Rank (10) if is unknown impact; False in other cases
     """
     match_unknown = re.search("unknown", exonicFuncRefGene, re.IGNORECASE)
 
     if(match_unknown):
-        return 8
+        return 10
     else:
         return False
 

@@ -15,7 +15,7 @@
 
 --------------------------------------------------------------------------------
 
-![MPA](doc/img/logo-MPA.png)
+![MPA](https://github.com/mobidic/MPA/tree/master/doc/img/logo-MPA.png)
 
 ![license](https://img.shields.io/github/license/mobidic/mpa.svg)
 ![release](https://img.shields.io/github/release/mobidic/mpa.svg)
@@ -41,7 +41,7 @@ courtesy regards of curators for pathogenic variants and from the ExAc database
 
 MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with MPA score & ranks.
 
-![MPA diagram](doc/img/MPA_diagram2.png)
+![MPA diagram](https://github.com/mobidic/MPA/tree/master/doc/img/MPA_diagram2.png)
 
 \*PTC: Premature Truncation Codon : nonsense or frameshift
 
@@ -110,7 +110,7 @@ python3 -m pip install --index-url https://test.pypi.org/simple/ --extra-index-u
 To run the MPA script, use this command line :
 
 ```bash
-python MPA.py -i path/to/input.vcf -o path/to/output.vcf
+mpa -i path/to/input.vcf -o path/to/output.vcf
 ```
 
 ### Quick guide for Annovar
@@ -162,7 +162,7 @@ perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out p
 
 France
 
-![MoBiDiC](doc/img/logo-mobidic.png)
+![MoBiDiC](https://github.com/mobidic/MPA/tree/master/doc/img/logo-mobidic.png)
 
 [Visit our website](https://neuro-2.iurc.montp.inserm.fr/mobidic/)
 

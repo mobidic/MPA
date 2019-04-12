@@ -6,7 +6,7 @@ __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'dev'
 
@@ -19,7 +19,7 @@ setuptools.setup(
     name="mobidic-mpa",
     version=__version__,
     author=__author__,
-    author_email=__email__bgbyh,
+    author_email=__email__,
     description="MPA: MoBiDiC Prioritization Algorithm",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -30,7 +30,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.6",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
-        'Development Status :: 2 - Alpha',
+        'Development Status :: 3 - Alpha',
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Scientific/Engineering :: Bio-Informatics",
     ],

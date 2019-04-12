@@ -15,7 +15,7 @@
 
 --------------------------------------------------------------------------------
 
-![MPA](https://github.com/mobidic/MPA/tree/master/doc/img/logo-MPA.png)
+![MPA](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-MPA.png)
 
 ![license](https://img.shields.io/github/license/mobidic/mpa.svg)
 ![release](https://img.shields.io/github/release/mobidic/mpa.svg)
@@ -41,7 +41,7 @@ courtesy regards of curators for pathogenic variants and from the ExAc database
 
 MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with MPA score & ranks.
 
-![MPA diagram](https://github.com/mobidic/MPA/tree/master/doc/img/MPA_diagram2.png)
+![MPA diagram](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/MPA_diagram2.png)
 
 \*PTC: Premature Truncation Codon : nonsense or frameshift
 

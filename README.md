@@ -1,18 +1,4 @@
-# Welcome to the MoBiDiC Prioritizing Algorithm (MPA)
-
-- [Welcome to the MoBiDiC Prioritizing Algorithm (MPA) !](#welcome-to-the-mobidic-prioritizing-algorithm-mpa-)
-	- [Overview](#overview)
-		- [Citing MPA](#citing-mpa)
-		- [Input](#input)
-		- [Output](#output)
-	- [Installation](#installation)
-		- [Requirements](#requirements)
-	- [Quick start](#quick-start)
-		- [Quick guide for Annovar](#quick-guide-for-annovar)
-			- [Install Annovar](#install-annovar)
-			- [Download all databases](#download-all-databases)
-			- [Annotate a VCF](#annotate-a-vcf)
-
+# MPA: MoBiDiC Prioritizing Algorithm
 --------------------------------------------------------------------------------
 
 ![MPA](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-MPA.png)
@@ -46,10 +32,6 @@ MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with M
 \*PTC: Premature Truncation Codon : nonsense or frameshift
 
 \**: intronic positions between -20 and +5
-
-### Citing MPA
-
-> **Yauy et al.** MPA, a free, accessible and efficient pipeline for SNV annotation and prioritization for NGS routine molecular diagnosis. **The Journal of Molecular Diagnostics (2018)** https://doi.org/10.1016/j.jmoldx.2018.03.009
 
 ### Input
 
@@ -154,6 +136,10 @@ The following command line annotate a VCF file :
 perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out path/to/output/name -remove -protocol refGene,refGene,clinvar_20180603,dbnsfp33a,spliceai_filtered,dbscsnv11 -operation g,g,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,
 ```
 
+### Citing MPA
+
+> **Yauy et al.** MPA, a free, accessible and efficient pipeline for SNV annotation and prioritization for NGS routine molecular diagnosis. **The Journal of Molecular Diagnostics (2018)** https://doi.org/10.1016/j.jmoldx.2018.03.009
+
 --------------------------------------------------------------------------------
 
 **Montpellier Bioinformatique pour le Diagnostique Clinique (MoBiDiC)**
@@ -162,7 +148,7 @@ perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out p
 
 France
 
-![MoBiDiC](https://github.com/mobidic/MPA/tree/master/doc/img/logo-mobidic.png)
+![MoBiDiC](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-mobidic.png)
 
 [Visit our website](https://neuro-2.iurc.montp.inserm.fr/mobidic/)
 

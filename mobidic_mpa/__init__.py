@@ -7,7 +7,7 @@ __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'dev'
 
@@ -250,9 +250,9 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     elif(spliceAI_score_moderate):
         return 6
     elif(spliceAI_score_low):
-        return 7
+        return 9
     elif(home_splice):
-        return 8
+        return 7
     else:
         return False
 

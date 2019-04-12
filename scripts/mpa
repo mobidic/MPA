@@ -75,5 +75,5 @@ if __name__ == "__main__":
     log.setLevel(args.logging_level)
     log.info("Start MPA annotation")
     log.info("Command: " + " ".join(sys.argv))
-    mobidic_mpa_test.main(args, log)
+    mobidic_mpa.main(args, log)
     log.info("End MPA annotation")

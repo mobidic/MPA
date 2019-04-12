@@ -17,6 +17,12 @@
 
 ![MPA](doc/img/logo-MPA.png)
 
+![license](https://img.shields.io/github/license/mobidic/mpa.svg)
+![release](https://img.shields.io/github/release/mobidic/mpa.svg)
+![pypiV](https://img.shields.io/pypi/v/mobidic-mpa.svg)
+![pythonV](https://img.shields.io/pypi/v/mobidic-mpa.svg)
+![pypiS](https://img.shields.io/pypi/status/mobidic-mpa.svg)
+
 ## Overview
 
 The MPA is a prioritizing algorithm for Next Generation Sequencing molecular
@@ -89,28 +95,15 @@ Find more informations at [Captain ACHAB](https://github.com/mobidic/Captain-ACH
 
 ## Installation
 
-To download MPA, please use git to download the most recent development tree.
-Currently, the tree is hosted on github, and can be obtained via:
-
-```bash
-$ git clone https://github.com/mobidic/MPA.git
-```
-
 ### Requirements
 
-* Linux or macOS
-* Python 3.5
-  - Standard Library:
-    + argparse
-    + csv
-	+ os
-	+ re
-	+ sys
-  - Librairies:
-    + PyVCF
+* Python 3
 
-> To install python librairies see [Dependencies](#dependencies) section.
+### pip
 
+```bash
+python3 -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple mobidic_mpa_test
+```
 
 ## Quick start
 

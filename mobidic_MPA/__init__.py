@@ -1,14 +1,13 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 #
 # Copyright (C) 2019
 #
 
-name = "mobidic_mpa"
 __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.4.0a'
+__version__ = '0.1.0'
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'dev'
 
@@ -66,9 +65,9 @@ def check_annotation(vcf_infos):
     @return: [None]
     """
     vcf_keys = [
+        'Func.refGene',
     	'ExonicFunc.refGene',
     	'FATHMM_pred',
-    	'Func.refGene',
     	'dbscSNV_ADA_SCORE',
     	'dbscSNV_RF_SCORE',
     	#'dpsi_zscore',
@@ -316,12 +315,14 @@ def is_unknown_impact(exonicFuncRefGene):
 # PROCESS
 #
 ################################################################################
-def process(args, log):
+def main(args, logger):
     """
     @summary: Launch annotation with MPA score on a vcf.
     @param args: [Namespace] The namespace extract from the script arguments.
     param log: [Logger] The logger of the script.
     """
+    global log
+    log = logger
 
     # TODO: improve this ! already existing on pyVCF
     _Info = collections.namedtuple('Info', ['id', 'num', 'type', 'desc', 'source', 'version'])
@@ -452,54 +453,3 @@ def process(args, log):
 
             vcf_writer.write_record(record)
         vcf_writer.close()
-
-################################################################################
-#
-# CLASS
-#
-################################################################################
-class LoggerAction(argparse.Action):
-    """
-    @summary: Manages logger level parameters (The value "INFO" becomes logging.info and so on).
-    """
-    def __call__(self, parser, namespace, values, option_string=None):
-        log_level = None
-        if values == "DEBUG":
-            log_level = logging.DEBUG
-        elif values == "INFO":
-            log_level = logging.INFO
-        elif values == "WARNING":
-            log_level = logging.WARNING
-        elif values == "ERROR":
-            log_level = logging.ERROR
-        elif values == "CRITICAL":
-            log_level = logging.CRITICAL
-        setattr(namespace, self.dest, log_level)
-
-################################################################################
-#
-# MAIN
-#
-################################################################################
-if __name__ == "__main__":
-    # Manage parameters
-    parser = argparse.ArgumentParser(description="Annotate VCF with Mobidic Prioritization Algorithm score (MPA).")
-    parser.add_argument('-d', '--mpa-directory', default=os.path.dirname(os.path.abspath(__file__)), help='The path to the MPA installation folder. [Default: %(default)s]')
-    parser.add_argument('-l', '--logging-level', default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], action=LoggerAction, help='The logger level. [Default: %(default)s]')
-    parser.add_argument('-v', '--version', action='version', version=__version__)
-
-    group_input = parser.add_argument_group('Inputs') # Inputs
-    group_input.add_argument('-i', '--input', required=True, help="The vcf file to annotate (format: VCF). This vcf must be annotate with annovar.")
-
-    group_output = parser.add_argument_group('Outputs')  # Outputs
-    group_output.add_argument('-o', '--output', required=True, help="The output vcf file with annotation (format : VCF)")
-    args = parser.parse_args()
-
-    # Process
-    logging.basicConfig(format='%(asctime)s - %(name)s [%(levelname)s] %(message)s')
-    log = logging.getLogger("MPA_score")
-    log.setLevel(args.logging_level)
-    log.info("Start MPA annotation")
-    log.info("Command: " + " ".join(sys.argv))
-    process(args, log)
-    log.info("End MPA annotation")

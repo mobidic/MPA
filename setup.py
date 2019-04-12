@@ -1,14 +1,13 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 #
 # Copyright (C) 2019
 #
-
-__author__ = ['Mobidic']
-__authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem']
+__author__ = 'Mobidic'
+__authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.4.0a0'
-__email__ = 'h-pegeot@chu-montpellier.fr'
+__version__ = '0.0.1'
+__email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'dev'
 
 import setuptools
@@ -17,19 +16,29 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="mobidic_mpa",
+    name="mobidic-mpa",
     version=__version__,
     author=__author__,
-    author_email=__email__,
-    description="MoBiDiC Prioritization Algorithm",
+    author_email=__email__bgbyh,
+    description="MPA: MoBiDiC Prioritization Algorithm",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/mobidic/MPA",
-    packages=setuptools.find_packages(exclude=['contrib', 'docs', 'tests']),
+    url="https://github.com/char-al",
+    packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
+        'Development Status :: 2 - Alpha',
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Topic :: Scientific/Engineering :: Bio-Informatics",
     ],
-    install_requires = ["pyvcf"]
+    install_requires=['pyvcf==0.6.8'],
+    entry_points={
+        "console_scripts": [
+            "mpa_main=mobidic_mpa_test:main"
+        ],
+    },
+    scripts = ['scripts/mpa'],
 )

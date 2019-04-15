@@ -1,13 +1,13 @@
 # MPA: MoBiDiC Prioritizing Algorithm
 --------------------------------------------------------------------------------
 
-![MPA](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-MPA.png)
-
 ![license](https://img.shields.io/github/license/mobidic/mpa.svg)
 ![release](https://img.shields.io/github/release/mobidic/mpa.svg)
 ![pypiV](https://img.shields.io/pypi/pyversions/mobidic-mpa.svg)
 ![pythonV](https://img.shields.io/pypi/v/mobidic-mpa.svg)
 ![pypiS](https://img.shields.io/pypi/status/mobidic-mpa.svg)
+
+![MPA](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-MPA.png)
 
 ## Overview
 

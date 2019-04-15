@@ -7,7 +7,7 @@ __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'dev'
 
@@ -24,7 +24,7 @@ setuptools.setup(
     description="MPA: MoBiDiC Prioritization Algorithm",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/char-al",
+    url="https://neuro-2.iurc.montp.inserm.fr/mpaweb/",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -42,4 +42,8 @@ setuptools.setup(
         ],
     },
     scripts = ['scripts/mpa'],
+    project_urls={  # Optional
+        'Bug Reports': 'https://github.com/mobidic/MPA/issues',
+        'Source': 'https://github.com/mobidic/MPA',
+},
 )

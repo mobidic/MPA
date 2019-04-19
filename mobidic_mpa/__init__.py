@@ -7,12 +7,12 @@ __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.0.7'
+__version__ = '0.0.5'
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'dev'
 
 ################################################################################
-#
+#Ó
 # IMPORT
 #
 ################################################################################
@@ -250,9 +250,9 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     elif(spliceAI_score_moderate):
         return 6
     elif(spliceAI_score_low):
-        return 9
-    elif(home_splice):
         return 7
+    elif(home_splice):
+        return 8
     else:
         return False
 
@@ -388,8 +388,8 @@ def main(args, logger):
             # MPA aggregate the information to predict some effects
             meta_impact = {
                 "clinvar_pathogenicity": False,
-                "splice_impact": False,
                 "stop_impact": False,
+                "splice_impact": False,
                 "frameshift_impact": False,
                 "unknown_impact": False
             }

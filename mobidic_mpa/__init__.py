@@ -7,7 +7,7 @@ __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.0.5'
+__version__ = '0.0.10'
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'dev'
 
@@ -437,9 +437,9 @@ def main(args, logger):
                         else:
                             adjusted_score["final_score"] = 10
 
-            # if not ranking default value 7
+            # if not ranking default value 10
             if not rank:
-                rank = 8
+                rank = 10
                 record.INFO['MPA_impact'] = "NULL,"
                 adjusted_score["final_score"] = adjusted_score["adjusted"]
 

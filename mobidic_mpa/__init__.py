@@ -7,7 +7,7 @@ __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '0.0.10'
+__version__ = '0.0.11'
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'dev'
 
@@ -250,9 +250,9 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     elif(spliceAI_score_moderate):
         return 6
     elif(spliceAI_score_low):
-        return 7
+        return 9
     elif(home_splice):
-        return 8
+        return 7
     else:
         return False
 
@@ -293,7 +293,7 @@ def is_missense_impact(exonicFuncRefGene):
     match_missense = re.search("nonsynonymous_SNV", exonicFuncRefGene, re.IGNORECASE)
 
     if(match_missense):
-        return 9
+        return 8
     else:
         return False
 
@@ -430,9 +430,9 @@ def main(args, logger):
                         rank = meta_impact[impact]
                         if(impact == "unknown_impact" or impact == "missense_impact"):
                             adjusted_score["final_score"] = adjusted_score["adjusted"]
-                        elif(impact == "splice_impact" and meta_impact["splice_impact"] == 7):
+                        elif(impact == "splice_impact" and meta_impact["splice_impact"] == 6):
                             adjusted_score["final_score"] = 8
-                        elif(impact == "splice_impact" and meta_impact["splice_impact"] == 8):
+                        elif(impact == "splice_impact" and meta_impact["splice_impact"] == 9):
                             adjusted_score["final_score"] = 6
                         else:
                             adjusted_score["final_score"] = 10

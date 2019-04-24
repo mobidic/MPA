@@ -61,14 +61,14 @@ VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splic
 
 #### Ranking : from 1 to 10 and score
 
-- 1 - 10 with clinvar_pathogenicity : Pathogenic variants reported on ClinVar
-- 2 - 10 with stop or frameshift_impact : Premature Truncation Codon : nonsense or frameshift
-- 3,4,5 - 10 with splicing_impact (ADA, RF, spliceAI) : Affecting splice variants predictions ranked by algorithm performance robustness and strength
-- 6 - 8 with moderate splicing_impact (spliceAI)
-- 7 - with splicing_impact (indel) - Indel in splicing regions (as there is no splicing predictions for this case)
-- 8 - with missense_impact (10 to 0) : Missense variants scores
-- 9 - 6 with low splicing_impact (spliceAI)
-- 10 - with unknown_impact : Exonic variants with not clearly annotated ORFs and splicing variants not predicted pathogenic
+- 1 - clinvar_pathogenicity : Pathogenic variants reported on ClinVar (score : 10)
+- 2 - stop or frameshift_impact : Premature Truncation Codon : nonsense or frameshift (score : 10)
+- 3,4,5 - splicing_impact (ADA, RF, spliceAI high) : Affecting splice variants predictions ranked by algorithm performance robustness and strength (score : 10)
+- 6 - moderate splicing_impact (spliceAI moderate) (score : 8)
+- 7 - splicing_impact (indel) - Indel in splicing regions (as there is no splicing predictions for this case) (score : 10)
+- 8 - missense_impact : Missense variants scores (score : 0-10)
+- 9 - low splicing impact (spliceAI low) (score : 6)
+- 10 - unknown impact  : Exonic variants with not clearly annotated ORFs and splicing variants not predicted pathogenic ; or NULL (no annotation on genes, splice etc...) (score : 0-10)
 
 #### With a simple interface (Captain ACHAB)
 

@@ -7,9 +7,9 @@ __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
-__status__ = 'dev'
+__status__ = 'prod'
 
 import setuptools
 

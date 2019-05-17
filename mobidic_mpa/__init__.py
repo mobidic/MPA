@@ -235,15 +235,15 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     if(RF_splice):
         return 3
     elif(ADA_splice):
-        return 4
+        return 3
     elif(spliceAI_score_high):
-        return 5
+        return 4
     elif(spliceAI_score_moderate):
         return 6
     elif(spliceAI_score_low):
-        return 9
+        return 8
     elif(home_splice):
-        return 7
+        return 8
     else:
         return False
 

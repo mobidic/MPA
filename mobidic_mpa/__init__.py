@@ -203,12 +203,6 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     )
 
     # If Zscore predict splicing impact but no ADA and RF annotation
-    # TODO: Replace for splice AI
-    # Zscore_splice = (splices_scores["Zscore"] != None and
-    #     splices_scores["ADA"] == None and
-    #     splices_scores["RF"] == None and
-    #     float(splices_scores["Zscore"]) < -2
-    # )
     if(splices_scores["spliceAI"] != None):
         spliceAI_split = splices_scores["spliceAI"].split("\\x3b")
         spliceAI_annot = dict()
@@ -243,8 +237,6 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
         return 3
     elif(ADA_splice):
         return 4
-    # TODO: Replace for splice AI
-    # elif(Zscore_splice):
     elif(spliceAI_score_high):
         return 5
     elif(spliceAI_score_moderate):
@@ -377,11 +369,9 @@ def main(args, logger):
             }
 
             # Splicing impact scores
-            # TODO: Replace for splice AI
             splices_scores = {
                 "ADA": record.INFO['dbscSNV_ADA_SCORE'][0],
                 "RF": record.INFO['dbscSNV_RF_SCORE'][0],
-                # "Zscore":record.INFO['dpsi_zscore'][0],
                 "spliceAI":record.INFO['spliceai_filtered'][0],
             }
 

@@ -70,7 +70,6 @@ def check_annotation(vcf_infos):
     	'FATHMM_pred',
     	'dbscSNV_ADA_SCORE',
     	'dbscSNV_RF_SCORE',
-    	#'dpsi_zscore',
         'spliceai_filtered',
         'SIFT_pred',
     	'Polyphen2_HDIV_pred',

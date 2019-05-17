@@ -275,22 +275,27 @@ def is_frameshift_impact(exonicFuncRefGene):
     else:
         return False
 
-def is_missense_impact(exonicFuncRefGene):
+def is_missense_impact(exonicFuncRefGene, adjusted_score):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
-    @return: [int/bool] Rank (9) if is missense impact; False in other cases
+    @return: [int/bool] Rank () if is missense impact; False in other cases
     """
     match_missense = re.search("nonsynonymous_SNV", exonicFuncRefGene, re.IGNORECASE)
 
     if(match_missense):
-        return 8
+        if(adjusted_score > 6):
+            return 5
+        elif(adjusted_score > 2):
+            return 7
+        else:
+            return 9
     else:
         return False
 
 def is_unknown_impact(exonicFuncRefGene):
     """
-    @summary: Predict stop codon effect of the variant
+    @summary: if no effect known
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
     @return: [int/bool] Rank (10) if is unknown impact; False in other cases
     """
@@ -402,7 +407,7 @@ def main(args, logger):
                 meta_impact["frameshift_impact"] = is_frameshift_impact(record.INFO['ExonicFunc.refGene'][0])
 
                 # Determine the missense impact
-                meta_impact["missense_impact"] = is_missense_impact(record.INFO['ExonicFunc.refGene'][0])
+                meta_impact["missense_impact"] = is_missense_impact(record.INFO['ExonicFunc.refGene'][0], adjusted_score["adjusted"])
 
                 # Determine if unknown impact (misunderstand gene)
                 # NOTE: /!\ Be careful to updates regularly your databases /!\

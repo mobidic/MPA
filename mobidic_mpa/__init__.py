@@ -7,7 +7,7 @@ __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '1.0.1'
+__version__ = '1.1.0'
 __email__ = 'h-pegeot@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -70,7 +70,6 @@ def check_annotation(vcf_infos):
     	'FATHMM_pred',
     	'dbscSNV_ADA_SCORE',
     	'dbscSNV_RF_SCORE',
-    	#'dpsi_zscore',
         'spliceai_filtered',
         'SIFT_pred',
     	'Polyphen2_HDIV_pred',
@@ -203,12 +202,6 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     )
 
     # If Zscore predict splicing impact but no ADA and RF annotation
-    # TODO: Replace for splice AI
-    # Zscore_splice = (splices_scores["Zscore"] != None and
-    #     splices_scores["ADA"] == None and
-    #     splices_scores["RF"] == None and
-    #     float(splices_scores["Zscore"]) < -2
-    # )
     if(splices_scores["spliceAI"] != None):
         spliceAI_split = splices_scores["spliceAI"].split("\\x3b")
         spliceAI_annot = dict()
@@ -243,8 +236,6 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
         return 3
     elif(ADA_splice):
         return 3
-    # TODO: Replace for splice AI
-    # elif(Zscore_splice):
     elif(spliceAI_score_high):
         return 4
     elif(spliceAI_score_moderate):
@@ -284,22 +275,27 @@ def is_frameshift_impact(exonicFuncRefGene):
     else:
         return False
 
-def is_missense_impact(exonicFuncRefGene):
+def is_missense_impact(exonicFuncRefGene, adjusted_score):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
-    @return: [int/bool] Rank (9) if is missense impact; False in other cases
+    @return: [int/bool] Rank () if is missense impact; False in other cases
     """
     match_missense = re.search("nonsynonymous_SNV", exonicFuncRefGene, re.IGNORECASE)
 
     if(match_missense):
-        return 8
+        if(adjusted_score > 6):
+            return 5
+        elif(adjusted_score > 2):
+            return 7
+        else:
+            return 9
     else:
         return False
 
 def is_unknown_impact(exonicFuncRefGene):
     """
-    @summary: Predict stop codon effect of the variant
+    @summary: if no effect known
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
     @return: [int/bool] Rank (10) if is unknown impact; False in other cases
     """
@@ -326,12 +322,12 @@ def main(args, logger):
 
     # TODO: improve this ! already existing on pyVCF
     _Info = collections.namedtuple('Info', ['id', 'num', 'type', 'desc', 'source', 'version'])
-    info_MPA_adjusted = _Info("MPA_adjusted", ".", "String", "MPA_adjusted : normalize MPA missense score from 0 to 10", "MPA", "1.0.1")
-    info_MPA_available = _Info("MPA_available", ".", "String", "MPA_available : number of missense tools annotation available for this variant", "MPA", "1.0.1")
-    info_MPA_deleterious = _Info("MPA_deleterious", ".", "String", "MPA_deleterious : number of missense tools that annotate this variant pathogenic", "MPA", "1.0.1")
-    info_MPA_final_score = _Info("MPA_final_score", ".", "String", "MPA_final_score : unique score that take into account curated database, biological assumptions, splicing predictions and the sum of various predictors for missense alterations. Annotations are made for exonic and splicing variants up to +300nt.", "MPA", "1.0.1")
-    info_MPA_impact = _Info("MPA_impact", ".", "String", "MPA_impact : pathogenic predictions (clinvar_pathogenicity, splice_impact, stop and frameshift_impact)", "MPA", "1.0.1")
-    info_MPA_ranking = _Info("MPA_ranking", ".", "String", "MPA_ranking : prioritize variants with ranks from 1 to 10", "MPA", "1.0.1")
+    info_MPA_adjusted = _Info("MPA_adjusted", ".", "String", "MPA_adjusted : normalize MPA missense score from 0 to 10", "MPA", "1.1.0")
+    info_MPA_available = _Info("MPA_available", ".", "String", "MPA_available : number of missense tools annotation available for this variant", "MPA", "1.1.0")
+    info_MPA_deleterious = _Info("MPA_deleterious", ".", "String", "MPA_deleterious : number of missense tools that annotate this variant pathogenic", "MPA", "1.1.0")
+    info_MPA_final_score = _Info("MPA_final_score", ".", "String", "MPA_final_score : unique score that take into account curated database, biological assumptions, splicing predictions and the sum of various predictors for missense alterations. Annotations are made for exonic and splicing variants up to +300nt.", "MPA", "1.1.0")
+    info_MPA_impact = _Info("MPA_impact", ".", "String", "MPA_impact : pathogenic predictions (clinvar_pathogenicity, splice_impact, stop and frameshift_impact)", "MPA", "1.1.0")
+    info_MPA_ranking = _Info("MPA_ranking", ".", "String", "MPA_ranking : prioritize variants with ranks from 1 to 10", "MPA", "1.1.0")
 
     with open(args.input, 'r') as f:
         log.info("Read VCF")
@@ -377,11 +373,9 @@ def main(args, logger):
             }
 
             # Splicing impact scores
-            # TODO: Replace for splice AI
             splices_scores = {
                 "ADA": record.INFO['dbscSNV_ADA_SCORE'][0],
                 "RF": record.INFO['dbscSNV_RF_SCORE'][0],
-                # "Zscore":record.INFO['dpsi_zscore'][0],
                 "spliceAI":record.INFO['spliceai_filtered'][0],
             }
 
@@ -413,7 +407,7 @@ def main(args, logger):
                 meta_impact["frameshift_impact"] = is_frameshift_impact(record.INFO['ExonicFunc.refGene'][0])
 
                 # Determine the missense impact
-                meta_impact["missense_impact"] = is_missense_impact(record.INFO['ExonicFunc.refGene'][0])
+                meta_impact["missense_impact"] = is_missense_impact(record.INFO['ExonicFunc.refGene'][0], adjusted_score["adjusted"])
 
                 # Determine if unknown impact (misunderstand gene)
                 # NOTE: /!\ Be careful to updates regularly your databases /!\

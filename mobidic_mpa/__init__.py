@@ -242,17 +242,17 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
     if(RF_splice):
         return 3
     elif(ADA_splice):
-        return 4
+        return 3
     # TODO: Replace for splice AI
     # elif(Zscore_splice):
     elif(spliceAI_score_high):
-        return 5
+        return 4
     elif(spliceAI_score_moderate):
         return 6
     elif(spliceAI_score_low):
-        return 9
+        return 8
     elif(home_splice):
-        return 7
+        return 8
     else:
         return False
 
@@ -431,9 +431,9 @@ def main(args, logger):
                         if(impact == "unknown_impact" or impact == "missense_impact"):
                             adjusted_score["final_score"] = adjusted_score["adjusted"]
                         elif(impact == "splice_impact" and meta_impact["splice_impact"] == 6):
-                            adjusted_score["final_score"] = 8
-                        elif(impact == "splice_impact" and meta_impact["splice_impact"] == 9):
                             adjusted_score["final_score"] = 6
+                        elif(impact == "splice_impact" and meta_impact["splice_impact"] == 8):
+                            adjusted_score["final_score"] = 2
                         else:
                             adjusted_score["final_score"] = 10
 

@@ -61,7 +61,6 @@ VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splic
 
 #### Ranking : from 1 to 10 and score
 
-Ranking : from 1 to 10 and score
 - 1. clinvar_pathogenicity : Pathogenic variants reported on ClinVar (score : 10)
 - 2. stop or frameshift_impact : Premature Truncation Codon : nonsense or frameshift (score : 10)
 - 3. splicing_impact (ADA, RF) : Affecting splice variants predictions ranked by algorithm performance robustness and strength (score : 10)

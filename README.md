@@ -61,6 +61,7 @@ VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splic
 
 #### Ranking : from 1 to 10 and score
 
+<<<<<<< HEAD
 - 1. clinvar_pathogenicity : Pathogenic variants reported on ClinVar (score : 10)
 - 2. stop or frameshift_impact : Premature Truncation Codon : nonsense or frameshift (score : 10)
 - 3. splicing_impact (ADA, RF) : Affecting splice variants predictions ranked by algorithm performance robustness and strength (score : 10)
@@ -71,6 +72,19 @@ VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splic
 - 8. low splicing impact (spliceAI low) (indel) (score : 2)
 - 9. missense_impact low : Missense variants scores low impact (score : 0-2)
 - 10. unknown impact : Exonic variants with not clearly annotated ORFs and splicing variants not predicted pathogenic ; or NULL (no annotation on genes, splice etc...) (score : 0-10)
+=======
+Ranking : from 1 to 10 and score
+- *1.* clinvar_pathogenicity : Pathogenic variants reported on ClinVar (score : 10)
+- *2.* stop or frameshift_impact : Premature Truncation Codon : nonsense or frameshift (score : 10)
+- *3.* splicing_impact (ADA, RF) : Affecting splice variants predictions ranked by algorithm performance robustness and strength (score : 10)
+- *4.* splicing_impact (spliceAI high) : Affecting splice variants predictions ranked by algorithm performance robustness and strength (score : 10)
+- *5.* missense impact moderate to high impact (6-10)
+- *6.* moderate splicing_impact (spliceAI moderate) (score 6)
+- *7.* missense_impact moderate : Missense variants scores low impact (score : 2-6)
+- *8.* low splicing impact (spliceAI low) (indel) (score : 2)
+- *9.* missense_impact low : Missense variants scores low impact (score : 0-2)
+- *10.* unknown impact : Exonic variants with not clearly annotated ORFs and splicing variants not predicted pathogenic ; or NULL (no annotation on genes, splice etc...) (score : 0-10)
+>>>>>>> 6d42f19af34636e2ddb26137fcdabbbbcefa13b9
 
 #### With a simple interface (Captain ACHAB)
 

@@ -121,8 +121,8 @@ In Annovar folder, download all database needed with annotate_variation.pl:
 
 ```bash
 perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar refGene humandb/
-perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar clinvar_20180603 humandb/
-perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbnsfp33a  humandb/
+perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar clinvar_20190305 humandb/
+perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbnsfp35a  humandb/
 perl annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbscsnv11 humandb/
 ```
 
@@ -137,7 +137,7 @@ Deprecated: For Spidex database, follow instruction here :
 The following command line annotate a VCF file :
 
 ```bash
-perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out path/to/output/name -remove -protocol refGene,refGene,clinvar_20180603,dbnsfp33a,spliceai_filtered,dbscsnv11 -operation g,g,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,
+perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out path/to/output/name -remove -protocol refGene,refGene,clinvar_20190305,dbnsfp35a,spliceai_filtered,dbscsnv11 -operation g,g,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,
 ```
 
 ### Citing MPA

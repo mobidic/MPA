@@ -7,7 +7,7 @@ __author__ = 'Mobidic'
 __authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
 __copyright__ = 'Copyright (C) 2019'
 __license__ = 'Academic License Agreement'
-__version__ = '1.1.0'
+__version__ = '1.1.1'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -38,7 +38,7 @@ setuptools.setup(
     install_requires=['pyvcf==0.6.8'],
     entry_points={
         "console_scripts": [
-            "mpa_main=mobidic_mpa_test:main"
+            "mpa_main=mobidic_mpa:main"
         ],
     },
     scripts = ['scripts/mpa'],

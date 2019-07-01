@@ -3,9 +3,7 @@
 
 ![license](https://img.shields.io/github/license/mobidic/mpa.svg)
 ![release](https://img.shields.io/github/release/mobidic/mpa.svg)
-![pypiV](https://img.shields.io/pypi/pyversions/mobidic-mpa.svg)
-![pythonV](https://img.shields.io/pypi/v/mobidic-mpa.svg)
-![pypiS](https://img.shields.io/pypi/status/mobidic-mpa.svg)
+[![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/mobidic-mpa/README.html)
 
 ![MPA](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-MPA.png)
 
@@ -27,7 +25,7 @@ courtesy regards of curators for pathogenic variants and from the ExAc database
 
 MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with MPA score & ranks.
 
-![MPA diagram](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/MPA_diagram2.png)
+![MPA diagram](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/MPA_diagram.png)
 
 \*PTC: Premature Truncation Codon : nonsense or frameshift
 
@@ -81,11 +79,38 @@ Find more informations at [Captain ACHAB](https://github.com/mobidic/Captain-ACH
 
 ## Installation
 
-### Requirements
+### Conda
+
+![Conda (channel only)](https://img.shields.io/conda/vn/bioconda/mobidic-mpa.svg)
+![Conda](https://img.shields.io/conda/pn/bioconda/mobidic-mpa.svg)
+![Conda](https://img.shields.io/conda/dn/bioconda/mobidic-mpa.svg)
+
+With an activated Bioconda channel (see [2. set up channels](https://bioconda.github.io/user/install.html#set-up-channels)), install with:
+
+      conda install mobidic-mpa
+
+and update with:
+
+      conda update mobidic-mpa
+
+or use the docker container:
+
+      docker pull quay.io/biocontainers/mobidic-mpa:<tag>
+
+(see [mobidic-mpa/tags](https://quay.io/repository/biocontainers/mobidic-mpa?tab=tags) for valid values for ``<tag>``)
+
+### Pypi
+
+![pythonV](https://img.shields.io/pypi/v/mobidic-mpa.svg)
+![pypiS](https://img.shields.io/pypi/status/mobidic-mpa.svg)
+![pypiV](https://img.shields.io/pypi/pyversions/mobidic-mpa.svg)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/mobidic-mpa.svg)
+
+#### Requirements
 
 * Python 3
 
-### pip
+#### pip
 
 ```bash
 python3 -m pip install mobidic-mpa

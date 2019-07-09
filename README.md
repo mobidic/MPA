@@ -172,7 +172,7 @@ perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out p
 
 --------------------------------------------------------------------------------
 
-**Montpellier Bioinformatique pour le Diagnostique Clinique (MoBiDiC)**
+**Montpellier Bioinformatique pour le Diagnostic Clinique (MoBiDiC)**
 
 *CHU de Montpellier*
 

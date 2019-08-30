@@ -207,13 +207,14 @@ def is_splice_impact(splices_scores, is_indel, funcRefGene):
         spliceAI_annot = dict()
         for annot in spliceAI_split:
             annot_split = annot.split("\\x3d")
-            spliceAI_annot[annot_split[0]] = annot_split[1]
+            if len(annot_split) > 1:
+                spliceAI_annot[annot_split[0]] = annot_split[1]
     spliceAI_score_high = (splices_scores["spliceAI"] != None and
         (float(spliceAI_annot["DS_AG"]) > 0.8 or
         float(spliceAI_annot["DS_AL"]) > 0.8 or
         float(spliceAI_annot["DS_DG"]) > 0.8 or
         float(spliceAI_annot["DS_DL"]) > 0.8 )
-    	)
+    )
     spliceAI_score_moderate = (splices_scores["spliceAI"] != None and
         (float(spliceAI_annot["DS_AG"]) > 0.5 or
         float(spliceAI_annot["DS_AL"]) > 0.5 or

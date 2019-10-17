@@ -116,7 +116,7 @@ def calculate_adjusted_score(scores_impact):
     log.debug("scores impact : " + str(scores_impact))
 
     for score, impact in scores_impact.items():
-        if(impact == "D"):
+        if(impact == "D" or impact == "A"):
             deleterious += 1
             available += 1
         elif(impact != None):

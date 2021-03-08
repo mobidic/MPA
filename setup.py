@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 #
-# Copyright (C) 2019
+# Copyright (C) 2021
 #
 
 __author__ = 'Mobidic'
-__authors__ = ['Henri Pegeot','Kevin Yauy','Charles Van Goethem','David Baux']
-__copyright__ = 'Copyright (C) 2019'
+__authors__ = [
+    'Henri Pegeot',
+    'Kevin Yauy',
+    'Charles Van Goethem',
+    'David Baux'
+]
+__copyright__ = 'Copyright (C) 2021'
 __license__ = 'Academic License Agreement'
-__version__ = '1.1.2'
+__version__ = '1.1.3'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -36,14 +41,9 @@ setuptools.setup(
         "Topic :: Scientific/Engineering :: Bio-Informatics",
     ],
     install_requires=['pyvcf==0.6.8'],
-    entry_points={
-        "console_scripts": [
-            "mpa_main=mobidic_mpa:main"
-        ],
-    },
-    scripts = ['scripts/mpa'],
+    scripts=['scripts/mpa'],
     project_urls={  # Optional
         'Bug Reports': 'https://github.com/mobidic/MPA/issues',
         'Source': 'https://github.com/mobidic/MPA',
-},
+    }
 )

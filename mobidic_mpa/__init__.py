@@ -12,7 +12,7 @@ __authors__ = [
 ]
 __copyright__ = 'Copyright (C) 2021'
 __license__ = 'Academic License Agreement'
-__version__ = '1.1.3'
+__version__ = '1.2.0'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -40,8 +40,8 @@ def check_annotation(vcf_infos):
     @return: [None]
     """
     vcf_keys = [
-        'Func.refGene',
-        'ExonicFunc.refGene',
+        'Func.refGeneWithVer',
+        'ExonicFunc.refGeneWithVer',
         'dbscSNV_ADA_SCORE',
         'dbscSNV_RF_SCORE',
         'spliceai_filtered',
@@ -61,7 +61,8 @@ def check_annotation(vcf_infos):
     if(not set(vcf_keys).issubset(vcf_infos)):
         sys.exit(
             "VCF not correctly annotated. See documentation and provide "
-            "a well annotated vcf (annotation with annovar).")
+            "a well annotated vcf (annotation with annovar)."
+        )
 
     return None
 
@@ -76,7 +77,8 @@ def check_split_variants(record):
     if (len(str(record.REF).split(',')) > 1):
         sys.exit(
             "Multi references on vcf. It seems that your vcf not "
-            "followed the specifications.")
+            "followed the specifications."
+        )
 
     if (len(record.ALT) > 1):
         sys.exit(
@@ -446,36 +448,36 @@ def main(args, logger):
             meta_impact["splice_impact"] = is_splice_impact(
                 splices_scores,
                 record.is_indel,
-                record.INFO['Func.refGene'][0]
+                record.INFO['Func.refGeneWithVer'][0]
             )
 
             # Determine the exonic impact
             match_exonic = re.search(
                 "exonic",
-                record.INFO['Func.refGene'][0],
+                record.INFO['Func.refGeneWithVer'][0],
                 re.IGNORECASE
             )
             if (
                 match_exonic and
-                record.INFO['ExonicFunc.refGene'][0] is not None
+                record.INFO['ExonicFunc.refGeneWithVer'][0] is not None
             ):
                 # Determine the stop impact
                 meta_impact["stop_impact"] = is_stop_impact(
-                    record.INFO['ExonicFunc.refGene'][0])
+                    record.INFO['ExonicFunc.refGeneWithVer'][0])
 
                 # Determine the frameshift impact
                 meta_impact["frameshift_impact"] = is_frameshift_impact(
-                    record.INFO['ExonicFunc.refGene'][0])
+                    record.INFO['ExonicFunc.refGeneWithVer'][0])
 
                 # Determine the missense impact
                 meta_impact["missense_impact"] = is_missense_impact(
-                    record.INFO['ExonicFunc.refGene'][0],
+                    record.INFO['ExonicFunc.refGeneWithVer'][0],
                     adjusted_score["adjusted"])
 
                 # Determine if unknown impact (misunderstand gene)
                 # NOTE: /!\ Be careful to updates regularly your databases /!\
                 meta_impact["unknown_impact"] = is_unknown_impact(
-                    record.INFO['ExonicFunc.refGene'][0])
+                    record.INFO['ExonicFunc.refGeneWithVer'][0])
 
             log.debug(f"Meta score : {meta_impact}")
 

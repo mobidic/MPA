@@ -40,7 +40,9 @@ setuptools.setup(
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Scientific/Engineering :: Bio-Informatics",
     ],
-    install_requires=['pyvcf==0.6.8'],
+    install_requires=[
+        'pyvcf==0.6.8'
+    ],
     scripts=['scripts/mpa'],
     project_urls={  # Optional
         'Bug Reports': 'https://github.com/mobidic/MPA/issues',

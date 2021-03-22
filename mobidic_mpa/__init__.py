@@ -380,9 +380,10 @@ def main(args, logger):
         "MPA",
         __version__
     )
+    refSeqExt = 'refGene' if args.no_refseq_version else 'refGeneWithVer'
 
     with open(args.input, 'r') as f:
-        log.info("Read VCF")
+        log.info("Read VCF file")
         vcf_reader = vcf.Reader(f)
         # TODO: improve this
         vcf_reader.infos.update({'MPA_adjusted': info_MPA_adjusted})
@@ -449,40 +450,43 @@ def main(args, logger):
                 record.INFO['CLNSIG'][0]
             )
 
+            FuncKey = f'Func.{refSeqExt}'
+            ExonicFuncKey = f'ExonicFunc.{refSeqExt}'
+
             # Determine the impact on splicing
             meta_impact["splice_impact"] = is_splice_impact(
                 splices_scores,
                 record.is_indel,
-                record.INFO['Func.refGeneWithVer'][0]
+                record.INFO[FuncKey][0]
             )
 
             # Determine the exonic impact
             match_exonic = re.search(
                 "exonic",
-                record.INFO['Func.refGeneWithVer'][0],
+                record.INFO[FuncKey][0],
                 re.IGNORECASE
             )
             if (
                 match_exonic and
-                record.INFO['ExonicFunc.refGeneWithVer'][0] is not None
+                record.INFO[ExonicFuncKey][0] is not None
             ):
                 # Determine the stop impact
                 meta_impact["stop_impact"] = is_stop_impact(
-                    record.INFO['ExonicFunc.refGeneWithVer'][0])
+                    record.INFO[ExonicFuncKey][0])
 
                 # Determine the frameshift impact
                 meta_impact["frameshift_impact"] = is_frameshift_impact(
-                    record.INFO['ExonicFunc.refGeneWithVer'][0])
+                    record.INFO[ExonicFuncKey][0])
 
                 # Determine the missense impact
                 meta_impact["missense_impact"] = is_missense_impact(
-                    record.INFO['ExonicFunc.refGeneWithVer'][0],
+                    record.INFO[ExonicFuncKey][0],
                     adjusted_score["adjusted"])
 
                 # Determine if unknown impact (misunderstand gene)
                 # NOTE: /!\ Be careful to updates regularly your databases /!\
                 meta_impact["unknown_impact"] = is_unknown_impact(
-                    record.INFO['ExonicFunc.refGeneWithVer'][0])
+                    record.INFO[ExonicFuncKey][0])
 
             log.debug(f"Meta score : {meta_impact}")
 
@@ -523,7 +527,7 @@ def main(args, logger):
                 record.INFO['MPA_impact'] = "NULL,"
                 adjusted_score["final_score"] = adjusted_score["adjusted"]
 
-            log.debug("Ranking : " + str(rank))
+            log.debug(f"Ranking : {rank}")
 
             # write vcf output
             record.INFO['MPA_impact'] = record.INFO['MPA_impact'][:-1]

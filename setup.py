@@ -12,7 +12,7 @@ __authors__ = [
 ]
 __copyright__ = 'Copyright (C) 2017-2021'
 __license__ = 'Academic License Agreement'
-__version__ = '1.2.1'
+__version__ = '1.2.2'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 

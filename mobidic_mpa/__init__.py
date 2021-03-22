@@ -12,7 +12,7 @@ __authors__ = [
 ]
 __copyright__ = 'Copyright (C) 2017-2021'
 __license__ = 'Academic License Agreement'
-__version__ = '1.2.1'
+__version__ = '1.2.2'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -32,16 +32,18 @@ import collections
 # FUNCTIONS
 #
 ########################################################################
-def check_annotation(vcf_infos):
+def check_annotation(vcf_infos, no_refseq_version=True):
     """
     @summary: Chek if vcf followed the guidelines for annotations (17 are \
         mandatory see full documentation)
     @param vcf_infos: [vcf.reader.infos] One record of the VCF
     @return: [None]
     """
+
+    refSeqExt = 'refGene' if no_refseq_version else 'refGeneWithVer'
     vcf_keys = [
-        'Func.refGeneWithVer',
-        'ExonicFunc.refGeneWithVer',
+        'Func.{}'.format(refSeqExt),
+        'ExonicFunc.{}'.format(refSeqExt),
         'dbscSNV_ADA_SCORE',
         'dbscSNV_RF_SCORE',
         'spliceai_filtered',
@@ -57,6 +59,8 @@ def check_annotation(vcf_infos):
         'MetaLR_pred',
         'CLNSIG'
     ]
+
+    log.debug(vcf_keys)
 
     if(not set(vcf_keys).issubset(vcf_infos)):
         sys.exit(
@@ -391,7 +395,7 @@ def main(args, logger):
         log.info("Check vcf annotations")
 
         try:
-            check_annotation(vcf_reader.infos)
+            check_annotation(vcf_reader.infos, args.no_refseq_version)
         except SystemExit as e:
             log.error(str(e))
             sys.exit(1)

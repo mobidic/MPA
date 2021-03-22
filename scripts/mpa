@@ -12,7 +12,7 @@ __authors__ = [
 ]
 __copyright__ = 'Copyright (C) 2017-2021'
 __license__ = 'Academic License Agreement'
-__version__ = '1.2.1'
+__version__ = '1.2.2'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -81,6 +81,15 @@ if __name__ == "__main__":
         '--version',
         action='version',
         version=__version__
+    )
+
+    group_input = parser.add_argument_group('Options')   # Inputs
+    group_input.add_argument(
+        '-r',
+        '--no-refseq-version',
+        default=False,
+        action='store_true',
+        help="Annotation without using refseq version with annovar."
     )
 
     group_input = parser.add_argument_group('Inputs')   # Inputs

@@ -12,7 +12,7 @@ __authors__ = [
 ]
 __copyright__ = 'Copyright (C) 2021'
 __license__ = 'Academic License Agreement'
-__version__ = '1.2.0'
+__version__ = '1.2.1'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -394,17 +394,18 @@ def main(args, logger):
             check_annotation(vcf_reader.infos)
         except SystemExit as e:
             log.error(str(e))
-            return 1
+            sys.exit(1)
 
         log.info("Read each variants")
         for record in vcf_reader:
+            log.debug(str(record))
+
             try:
                 check_split_variants(record)
             except SystemExit as e:
                 log.error(str(record))
                 log.error(str(e))
-                continue
-            log.debug(str(record))
+                sys.exit(2)
 
             # Deleterious impact scores
             impacts_scores = {

@@ -83,13 +83,20 @@ if __name__ == "__main__":
         version=__version__
     )
 
-    group_input = parser.add_argument_group('Options')   # Inputs
+    group_input = parser.add_argument_group('Options')   # Options
     group_input.add_argument(
         '-r',
         '--no-refseq-version',
         default=False,
         action='store_true',
         help="Annotation without using refseq version with annovar."
+    )
+    group_input.add_argument(
+        '-p',
+        '--no-progress-bar',
+        default=False,
+        action='store_true',
+        help="Disable progress bar (avoid to read vcf twice for large vcf)."
     )
 
     group_input = parser.add_argument_group('Inputs')   # Inputs

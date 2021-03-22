@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Copyright (C) 2021
+# Copyright (C) 2017-2021
 #
 
 __author__ = 'Mobidic'
@@ -10,7 +10,7 @@ __authors__ = [
     'Charles Van Goethem',
     'David Baux'
 ]
-__copyright__ = 'Copyright (C) 2021'
+__copyright__ = 'Copyright (C) 2017-2021'
 __license__ = 'Academic License Agreement'
 __version__ = '1.2.1'
 __email__ = 'c-vangoethem@chu-montpellier.fr'

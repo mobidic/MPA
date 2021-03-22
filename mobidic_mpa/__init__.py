@@ -25,6 +25,7 @@ import vcf        # read vcf => PyVCF :https://pyvcf.readthedocs.io/en/latest/
 import sys        # system command
 import re         # regex
 import collections
+import tqdm
 
 
 ########################################################################
@@ -385,6 +386,9 @@ def main(args, logger):
     with open(args.input, 'r') as f:
         log.info("Read VCF file")
         vcf_reader = vcf.Reader(f)
+        count = sum(1 for _ in vcf_reader)
+        log.info(f"Number of variants : {count}")
+        f.seek(0)
         # TODO: improve this
         vcf_reader.infos.update({'MPA_adjusted': info_MPA_adjusted})
         vcf_reader.infos.update({'MPA_available': info_MPA_available})
@@ -402,7 +406,8 @@ def main(args, logger):
             sys.exit(1)
 
         log.info("Read each variants")
-        for record in vcf_reader:
+        vcf_reader = vcf.Reader(f)
+        for record in tqdm.tqdm(vcf_reader, total=count):
             log.debug(str(record))
 
             try:

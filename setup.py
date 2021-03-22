@@ -41,7 +41,8 @@ setuptools.setup(
         "Topic :: Scientific/Engineering :: Bio-Informatics",
     ],
     install_requires=[
-        'pyvcf==0.6.8'
+        'pyvcf==0.6.8',
+        'tqdm==4.59.0'
     ],
     scripts=['scripts/mpa'],
     project_urls={  # Optional

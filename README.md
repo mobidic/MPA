@@ -109,7 +109,7 @@ or use the docker container:
 
 #### Requirements
 
-* Python = 3.6
+* Python >= 3.6
 
 #### pip
 

@@ -88,7 +88,7 @@ Find more informations at [Captain ACHAB](https://github.com/mobidic/Captain-ACH
 
 With an activated Bioconda channel (see [2. set up channels](https://bioconda.github.io/user/install.html#set-up-channels)), install with:
 
-      conda install mobidic-mpa
+      conda install -c bioconda mobidic-mpa
 
 and update with:
 

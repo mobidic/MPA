@@ -1,4 +1,4 @@
-# MPA: MoBiDiC Prioritizing Algorithm
+# MPA: MoBiDiC Prioritization Algorithm
 --------------------------------------------------------------------------------
 
 [![license](https://img.shields.io/github/license/mobidic/mpa.svg)](https://github.com/mobidic/MPA/blob/master/LICENSE)

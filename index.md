@@ -6,7 +6,7 @@
 [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/mobidic-mpa/README.html)
 [![GitHub commits since latest release](https://img.shields.io/github/commits-since/mobidic/mpa/latest.svg)](https://github.com/mobidic/MPA/commits/master)
 
-[![MPA](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-MPA.png)](#)
+![MPA](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-MPA.png)
 
 ## Overview
 
@@ -26,7 +26,7 @@ courtesy regards of curators for pathogenic variants and from the ExAc database
 
 MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with MPA score & ranks.
 
-[![MPA diagram](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/MPA_diagram.png)](#)
+![MPA diagram](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/MPA_diagram.png)
 
 \*PTC: Premature Truncation Codon : nonsense or frameshift
 
@@ -179,8 +179,6 @@ perl path/to/table_annovar.pl path/to/example.vcf humandb/ -buildver hg19 -out p
 France
 
 [![MoBiDiC](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-mobidic.png)](https://github.com/mobidic/)
-
-[Visit our website](https://neuro-2.iurc.montp.inserm.fr/mobidic/)
 
 --------------------------------------------------------------------------------
 

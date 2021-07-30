@@ -6,7 +6,7 @@
 [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/mobidic-mpa/README.html)
 [![GitHub commits since latest release](https://img.shields.io/github/commits-since/mobidic/mpa/latest.svg)](https://github.com/mobidic/MPA/commits/master)
 
-[![MPA](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-MPA.png)](#)
+[![MPA](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-MPA.png)](https://mobidic.github.io/MPA/)
 
 ## Overview
 
@@ -180,7 +180,7 @@ France
 
 [![MoBiDiC](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/logo-mobidic.png)](https://github.com/mobidic/)
 
-[Visit our website](https://neuro-2.iurc.montp.inserm.fr/mobidic/)
+[Visit our website](https://pmmg.iurc.montp.inserm.fr/mobidic/)
 
 --------------------------------------------------------------------------------
 

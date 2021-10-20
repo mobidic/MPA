@@ -252,7 +252,7 @@ def is_stop_impact(exonicFuncRefGene):
         return False
 
 
-def is_frameshift_impact(exonicFuncRefGene):
+def is_indel_impact(exonicFuncRefGene):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
@@ -269,6 +269,8 @@ def is_frameshift_impact(exonicFuncRefGene):
 
     if(match_frameshift and not match_nonframeshift):
         return 2
+    elif(match_nonframeshift):
+        return 8
     else:
         return False
 
@@ -369,7 +371,7 @@ def main(args, logger):
         ".",
         "String",
         "MPA_impact : pathogenic predictions (clinvar_pathogenicity, \
-        splice_impact, stop and frameshift_impact)",
+        splice_impact, stop, frameshift_impact & indel_impact)",
         "MPA",
         __version__
     )
@@ -447,6 +449,7 @@ def main(args, logger):
                 "stop_impact": False,
                 "splice_impact": False,
                 "frameshift_impact": False,
+                "indel_impact": False,
                 "unknown_impact": False
             }
 
@@ -483,8 +486,10 @@ def main(args, logger):
                     record.INFO[ExonicFuncKey][0])
 
                 # Determine the frameshift impact
-                meta_impact["frameshift_impact"] = is_frameshift_impact(
-                    record.INFO[ExonicFuncKey][0])
+                if is_indel_impact(record.INFO[ExonicFuncKey][0]) == 8:
+                    meta_impact["indel_impact"] = True
+                if is_indel_impact(record.INFO[ExonicFuncKey][0]) == 2:
+                    meta_impact["frameshift_impact"] = True
 
                 # Determine the missense impact
                 meta_impact["missense_impact"] = is_missense_impact(
@@ -509,7 +514,9 @@ def main(args, logger):
                     )
 
                     if(meta_impact[impact] < rank or not rank):
+
                         rank = meta_impact[impact]
+
                         if (
                             impact == "unknown_impact" or
                             impact == "missense_impact"
@@ -524,6 +531,16 @@ def main(args, logger):
                         elif (
                             impact == "splice_impact" and
                             meta_impact["splice_impact"] == 8
+                        ):
+                            adjusted_score["final_score"] = 2
+                        elif (
+                            impact == "indel_impact" and
+                            meta_impact["indel_impact"] == True
+                        ):
+                            adjusted_score["final_score"] = 8
+                        elif (
+                            impact == "frameshift_impact" and
+                            meta_impact["frameshift_impact"] == True
                         ):
                             adjusted_score["final_score"] = 2
                         else:

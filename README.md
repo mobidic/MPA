@@ -67,7 +67,7 @@ VCF is annotated with multiples items : MPA_impact (Clinvar_pathogenicity, splic
 - *5.* missense impact moderate to high impact (6-10)
 - *6.* moderate splicing_impact (spliceAI moderate) (score 6)
 - *7.* missense_impact moderate : Missense variants scores low impact (score : 2-6)
-- *8.* low splicing impact (spliceAI low) (indel) (score : 2)
+- *8.* low splicing impact (spliceAI low) or nonframeshift_impact (indel) (score : 2)
 - *9.* missense_impact low : Missense variants scores low impact (score : 0-2)
 - *10.* unknown impact : Exonic variants with not clearly annotated ORFs and splicing variants not predicted pathogenic ; or NULL (no annotation on genes, splice etc...) (score : 0-10)
 

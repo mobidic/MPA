@@ -8,11 +8,12 @@ __authors__ = [
     'Henri Pegeot',
     'Kevin Yauy',
     'Charles Van Goethem',
+    'Thomas Guignard',
     'David Baux'
 ]
 __copyright__ = 'Copyright (C) 2017-2021'
 __license__ = 'Academic License Agreement'
-__version__ = '1.2.2'
+__version__ = '1.2.3'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 

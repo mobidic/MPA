@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Copyright (C) 2017-2021
+# Copyright (C) 2017-2022
 #
 
 __author__ = 'Mobidic'
@@ -11,7 +11,7 @@ __authors__ = [
     'Thomas Guignard',
     'David Baux'
 ]
-__copyright__ = 'Copyright (C) 2017-2021'
+__copyright__ = 'Copyright (C) 2017-2022'
 __license__ = 'Academic License Agreement'
 __version__ = '1.2.4'
 __email__ = 'c-vangoethem@chu-montpellier.fr'

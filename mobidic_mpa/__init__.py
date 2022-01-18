@@ -13,7 +13,7 @@ __authors__ = [
 ]
 __copyright__ = 'Copyright (C) 2017-2021'
 __license__ = 'Academic License Agreement'
-__version__ = '1.2.3'
+__version__ = '1.2.4'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -343,8 +343,7 @@ def main(args, logger):
         "MPA_available",
         ".",
         "String",
-        "MPA_available : number of missense tools annotation available for \
-        this variant",
+        "MPA_available : number of missense tools annotation available for this variant",
         "MPA",
         __version__
     )
@@ -352,8 +351,7 @@ def main(args, logger):
         "MPA_deleterious",
         ".",
         "String",
-        "MPA_deleterious : number of missense tools that annotate this \
-        variant pathogenic",
+        "MPA_deleterious : number of missense tools that annotate this variant pathogenic",
         "MPA",
         __version__
     )
@@ -371,8 +369,7 @@ def main(args, logger):
         "MPA_impact",
         ".",
         "String",
-        "MPA_impact : pathogenic predictions (clinvar_pathogenicity, \
-        splice_impact, stop, frameshift_impact & indel_impact)",
+        "MPA_impact : pathogenic predictions (clinvar_pathogenicity, splice_impact, stop, frameshift_impact & indel_impact)",
         "MPA",
         __version__
     )
@@ -488,9 +485,9 @@ def main(args, logger):
 
                 # Determine the frameshift impact
                 if is_indel_impact(record.INFO[ExonicFuncKey][0]) == 8:
-                    meta_impact["indel_impact"] = True
+                    meta_impact["indel_impact"] = 8
                 if is_indel_impact(record.INFO[ExonicFuncKey][0]) == 2:
-                    meta_impact["frameshift_impact"] = True
+                    meta_impact["frameshift_impact"] = 2
 
                 # Determine the missense impact
                 meta_impact["missense_impact"] = is_missense_impact(
@@ -536,12 +533,12 @@ def main(args, logger):
                             adjusted_score["final_score"] = 2
                         elif (
                             impact == "indel_impact" and
-                            meta_impact["indel_impact"] == True
+                            meta_impact["indel_impact"] == 8
                         ):
                             adjusted_score["final_score"] = 8
                         elif (
                             impact == "frameshift_impact" and
-                            meta_impact["frameshift_impact"] == True
+                            meta_impact["frameshift_impact"] == 2
                         ):
                             adjusted_score["final_score"] = 2
                         else:

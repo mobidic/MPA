@@ -28,7 +28,7 @@ MPA needs an annotated vcf by ANNOVAR and give as output an annotated vcf with M
 
 [![MPA diagram](https://raw.githubusercontent.com/mobidic/MPA/master/doc/img/MPA_diagram.png)](#)
 
-\*PTC: Premature Truncation Codon : nonsense or frameshift
+\*PTC: Premature Truncation Codon : nonsense or frameshift or start loss
 
 \**: intronic positions between -20 and +5
 

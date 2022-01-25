@@ -13,7 +13,7 @@ __authors__ = [
 ]
 __copyright__ = 'Copyright (C) 2017-2022'
 __license__ = 'Academic License Agreement'
-__version__ = '1.2.4'
+__version__ = '1.2.5'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -252,12 +252,25 @@ def is_stop_impact(exonicFuncRefGene):
     else:
         return False
 
+def is_start_impact(exonicFuncRefGene):
+    """
+    @summary: Predict start codon effect of the variant
+    @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
+    @return: [bool] Rank (2) if is start impact; False in other cases
+    """
+    match_startloss = re.search("startloss", exonicFuncRefGene, re.IGNORECASE)
+    #match_startgain = re.search("startgain", exonicFuncRefGene, re.IGNORECASE)
+
+    if(match_startloss):
+        return 2
+    else:
+        return False
 
 def is_indel_impact(exonicFuncRefGene):
     """
     @summary: Predict stop codon effect of the variant
     @param exonicFuncRefGene: [str] The exonic function predicted by RefGene
-    @return: [int/bool] Rank (2) if is frameshift impact; False in other cases
+    @return: [int/bool] Rank (2) if is frameshift impact; Rank (8) if non-frameshift; False in other cases
     """
     match_frameshift = re.search(
         "frameshift",
@@ -369,7 +382,7 @@ def main(args, logger):
         "MPA_impact",
         ".",
         "String",
-        "MPA_impact : pathogenic predictions (clinvar_pathogenicity, splice_impact, stop, frameshift_impact & indel_impact)",
+        "MPA_impact : pathogenic predictions (clinvar_pathogenicity, splice_impact, stop, start, frameshift_impact & indel_impact)",
         "MPA",
         __version__
     )
@@ -481,6 +494,10 @@ def main(args, logger):
             ):
                 # Determine the stop impact
                 meta_impact["stop_impact"] = is_stop_impact(
+                    record.INFO[ExonicFuncKey][0])
+
+                # Determine the start impact
+                meta_impact["start_impact"] = is_start_impact(
                     record.INFO[ExonicFuncKey][0])
 
                 # Determine the frameshift impact

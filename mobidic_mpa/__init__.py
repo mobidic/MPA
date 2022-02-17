@@ -13,7 +13,7 @@ __authors__ = [
 ]
 __copyright__ = 'Copyright (C) 2017-2022'
 __license__ = 'Academic License Agreement'
-__version__ = '1.2.5'
+__version__ = '1.2.6'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -414,8 +414,12 @@ def main(args, logger):
         vcf_reader.infos.update({'MPA_impact': info_MPA_impact})
         vcf_reader.infos.update({'MPA_ranking': info_MPA_ranking})
         vcf_writer = vcf.Writer(open(args.output, 'w'), vcf_reader)
-        log.info("Check vcf annotations")
 
+        if count == 0:
+            log.warn("No variant in VCF. Exit.")
+            sys.exit(0)
+
+        log.info("Check vcf annotations")
         try:
             check_annotation(vcf_reader.infos, args.no_refseq_version)
         except SystemExit as e:

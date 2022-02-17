@@ -13,7 +13,7 @@ __authors__ = [
 ]
 __copyright__ = 'Copyright (C) 2017-2022'
 __license__ = 'Academic License Agreement'
-__version__ = '1.2.5'
+__version__ = '1.2.6'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -30,7 +30,7 @@ setuptools.setup(
     description="MPA: MoBiDiC Prioritization Algorithm",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://neuro-2.iurc.montp.inserm.fr/mpaweb/",
+    url="https://mobidic.github.io/MPA/",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

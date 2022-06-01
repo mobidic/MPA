@@ -13,7 +13,7 @@ __authors__ = [
 ]
 __copyright__ = 'Copyright (C) 2017-2022'
 __license__ = 'Academic License Agreement'
-__version__ = '1.2.6'
+__version__ = '1.3.0'
 __email__ = 'c-vangoethem@chu-montpellier.fr'
 __status__ = 'prod'
 
@@ -42,8 +42,9 @@ setuptools.setup(
         "Topic :: Scientific/Engineering :: Bio-Informatics",
     ],
     install_requires=[
-        'pyvcf==0.6.8',
-        'tqdm==4.59.0'
+        'vcfpy>=0.13.4',
+        'tqdm>=4.59.0',
+        'pysam>=0.19.1'
     ],
     scripts=['scripts/mpa'],
     project_urls={  # Optional
